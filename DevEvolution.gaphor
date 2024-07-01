@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gaphor xmlns="http://gaphor.sourceforge.net/model" version="3.0" gaphor-version="2.25.1">
+<StyleSheet id="58d6989a-66f8-11ec-b4c8-0456e5e540ed"/>
+<Package id="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed">
+<name>
+<val>projetoDevEvolution</val>
+</name>
+<ownedDiagram>
+<reflist>
+<ref refid="4ff8aa50-3732-11ef-b014-67eb1eb3c3a2"/>
+</reflist>
+</ownedDiagram>
+<ownedType>
+<reflist>
+<ref refid="60d83089-3732-11ef-b089-67eb1eb3c3a2"/>
+</reflist>
+</ownedType>
+</Package>
+<Diagram id="4ff8aa50-3732-11ef-b014-67eb1eb3c3a2">
+<diagramType>
+<val>cls</val>
+</diagramType>
+<element>
+<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+</element>
+<name>
+<val>Diagrama de classes</val>
+</name>
+<ownedPresentation>
+<reflist>
+<ref refid="60d8fc48-3732-11ef-bac1-67eb1eb3c3a2"/>
+</reflist>
+</ownedPresentation>
+</Diagram>
+<Class id="60d83089-3732-11ef-b089-67eb1eb3c3a2">
+<name>
+<val>usuario</val>
+</name>
+<ownedAttribute>
+<reflist>
+<ref refid="793b7df9-3739-11ef-976f-67eb1eb3c3a2"/>
+<ref refid="819dbf44-3739-11ef-97c0-67eb1eb3c3a2"/>
+<ref refid="8797d896-3739-11ef-8069-67eb1eb3c3a2"/>
+</reflist>
+</ownedAttribute>
+<package>
+<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="60d8fc48-3732-11ef-bac1-67eb1eb3c3a2"/>
+</reflist>
+</presentation>
+</Class>
+<ClassItem id="60d8fc48-3732-11ef-bac1-67eb1eb3c3a2">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 518.5313110351562, 147.1796875)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>165.7850341796875</val>
+</width>
+<height>
+<val>108.0</val>
+</height>
+<diagram>
+<ref refid="4ff8aa50-3732-11ef-b014-67eb1eb3c3a2"/>
+</diagram>
+<subject>
+<ref refid="60d83089-3732-11ef-b089-67eb1eb3c3a2"/>
+</subject>
+</ClassItem>
+<Property id="793b7df9-3739-11ef-976f-67eb1eb3c3a2">
+<class_>
+<ref refid="60d83089-3732-11ef-b089-67eb1eb3c3a2"/>
+</class_>
+<name>
+<val>nome</val>
+</name>
+<typeValue>
+<val>string</val>
+</typeValue>
+</Property>
+<Property id="819dbf44-3739-11ef-97c0-67eb1eb3c3a2">
+<class_>
+<ref refid="60d83089-3732-11ef-b089-67eb1eb3c3a2"/>
+</class_>
+<name>
+<val>email</val>
+</name>
+<typeValue>
+<val>string</val>
+</typeValue>
+</Property>
+<Property id="8797d896-3739-11ef-8069-67eb1eb3c3a2">
+<class_>
+<ref refid="60d83089-3732-11ef-b089-67eb1eb3c3a2"/>
+</class_>
+<name>
+<val>idade</val>
+</name>
+<typeValue>
+<val>date</val>
+</typeValue>
+</Property>
+</gaphor>
