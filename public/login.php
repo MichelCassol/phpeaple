@@ -19,7 +19,7 @@
             <div class="flex items-center justify-between mb-6 mt-8">
                 <button type="submit" class="bg-blue-500 w-full text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Logar</button>
             </div>
-            <div class="flex items-center justify-between mb-2.5">
+            <div class="flex items-center justify-between">
                 <label for="cadastro" class="text-gray-700">Ainda não possui uma conta? </label>
                 <button id="cadastro" type="button" onclick="window.location.href='public/cadastro.php'" class="text-blue-500 hover:underline">Cadastre-se</button>
             </div>
