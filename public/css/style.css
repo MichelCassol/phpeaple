@@ -1,0 +1,16 @@
+.hidden {
+    display: none;
+}
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0.5rem 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #3B82F6;
+    color: white;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+.custom-file-upload:hover {
+    background-color: #2563EB;
+}
