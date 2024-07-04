@@ -21,8 +21,8 @@
         <!-- Postagem -->
         <div class="bg-white rounded-lg shadow-lg mb-8">
             <div class="p-6 grid gap-4 grid-cols-1">
-                <h2 class="text-lg font-semibold">Nome do Usuário</h2>
-                <p class="text-gray-700">Este é um exemplo de texto da postagem. Pode ser uma descrição, um comentário ou qualquer outro conteúdo textual.</p>
+                <h2 class="text-lg font-semibold">User</h2>
+                <p class="text-gray-700">Texto aqui</p>
                 <img src="https://via.placeholder.com/600x400" alt="postagem" class="w-full rounded-lg ">
                 <div class="flex items-center justify-between">
                     <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Curtir</button>

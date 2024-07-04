@@ -2,6 +2,7 @@
 
 class Usuario 
 {
+    private $db;
     private int $id;
     private string $nome;
     private string $email;
@@ -9,6 +10,10 @@ class Usuario
     private string $senha;
     private string $caminhoFoto;
     private string $descricao;
+
+    public function __construct($db){
+        $this->db = $db;
+    }
 
     public function getId()
     {
