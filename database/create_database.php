@@ -7,7 +7,7 @@ $db = conexao();
 $create_table_usuario = "CREATE TABLE IF NOT EXISTS usuario (
     id INTEGER PRIMARY KEY AUTOINCREMENT
     ,nome VARCHAR NOT NULL
-    ,idade DATE
+    ,nascimento DATE
     ,senha VARCHAR NOT NULL
     ,email VARCHAR NOT NULL
     ,foto_arquivo VARCHAR

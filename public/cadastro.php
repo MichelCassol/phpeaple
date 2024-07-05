@@ -1,3 +1,16 @@
+<?php 
+require_once dirname(__DIR__) . "/autoload.php";
+if ($_GET) {
+    $formulario = $_GET['form'];
+
+    $controllerUsuario = new UsuarioController();
+
+    if ($formulario == 'cadastro') {
+        $controllerUsuario->cadastroUsuario($_POST);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,7 +19,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <form id="registration-form" class="xl:w-1/3 lg:w-3/5">
+    <form method="post" action="/public/cadastro.php?form=cadastro" id="registration-form" class="xl:w-1/3 lg:w-3/5">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl flex">
             <div class="w-3/4 pr-8">
                 <h2 class="text-2xl font-bold mb-6 text-center">Cadastro</h2>

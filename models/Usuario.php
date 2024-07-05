@@ -11,7 +11,7 @@ class Usuario
     private string $caminhoFoto;
     private string $descricao;
 
-    public function __construct($db){
+    public function __construct(PDO $db){
         $this->db = $db;
     }
 
@@ -52,7 +52,7 @@ class Usuario
 
     public function setNascimento($nascimento)
     {
-        $this->nascimento = $nascimento;
+        $this->nascimento = DateTime::createFromFormat('Y-m-d', $nascimento);
     }
 
     public function getSenha()
@@ -83,5 +83,21 @@ class Usuario
     public function setDescricao($descricao)
     {
         $this->descricao = $descricao;
+    }
+
+    public function cadastro() 
+    {
+        try {
+            $stmt = $this->db->prepare("INSERT INTO usuario(nome, senha, email, nascimento, foto_arquivo, descricao) VALUES(:nome, :senha, :email, :nascimento, :foto_arquivo, :descricao)");
+            $stmt->bindValue(':nome', $this->nome);
+            $stmt->bindValue(':senha', $this->senha);
+            $stmt->bindValue(':email', $this->email);
+            $stmt->bindValue(':nascimento', $this->nascimento->format('Y-m-d'));
+            $stmt->bindValue(':foto_arquivo', $this->caminhoFoto);
+            $stmt->bindValue(':descricao', $this->descricao);
+            $stmt->execute();
+        } catch (PDOException $th) {
+            die('Erro: '.$th);
+        }       
     }
 }
