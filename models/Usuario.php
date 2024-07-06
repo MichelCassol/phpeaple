@@ -103,16 +103,15 @@ class Usuario
     
     public function login()
     {
-        // die($this->email.$this->senha);
         try {
             $stmt = $this->db->prepare("SELECT * FROM usuario WHERE email = :email");
             $stmt->bindValue(":email", $this->email);
             $stmt->execute();
             $result = $stmt->fetch();
             if (isset($result['id']) && password_verify($this->senha, $result['senha'])) {
-                return true;
+                return $result;
             } else {
-                return false;
+                return [];
             }
         } catch (PDOException $th) {
             echo "Erro: ".$th;

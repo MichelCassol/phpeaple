@@ -32,7 +32,7 @@ if (isset($_POST['email'])) {
             </div>
             <div class="flex items-center justify-between">
                 <label for="cadastro" class="text-gray-700">Ainda não possui uma conta? </label>
-                <button id="cadastro" type="button" onclick="window.location.href='public/cadastro.php'" class="text-blue-500 hover:underline">Cadastre-se</button>
+                <button id="cadastro" type="button" onclick="window.location.href='/public/cadastro.php'" class="text-blue-500 hover:underline">Cadastre-se</button>
             </div>
         </form>
         <?php 

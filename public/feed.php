@@ -1,3 +1,8 @@
+<?php 
+require_once dirname(__DIR__) . "/config/session.php";
+autenticar();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,7 +16,7 @@
                 <img src="https://via.placeholder.com/40" alt="Foto de Perfil" class="w-10 h-10 rounded-full">
                 <button class="bg-white text-blue-500 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Perfil</button>
             </div>
-            <button class="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4">Sair</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4"onclick="window.location.href='../config/logout.php'">Sair</button>
         </div>
     </nav>
 
