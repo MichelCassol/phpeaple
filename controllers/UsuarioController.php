@@ -5,21 +5,36 @@ require_once dirname(__DIR__) . "/database/conexao.php";
 class UsuarioController
 {
     private PDO $db;
+    private Usuario $usuario;
 
     function __construct()
     {
         $this->db = conexao();
+        $this->usuario = new Usuario($this->db);
     }
 
     function cadastroUsuario($array_usuario)
     {
-        $usuario = new Usuario($this->db);
-        $usuario->setNome($array_usuario['nome']);
-        $usuario->setEmail($array_usuario['email']);
-        $usuario->setSenha(password_hash($array_usuario['senha'], PASSWORD_BCRYPT));
-        $usuario->setNascimento($array_usuario['data-nascimento']);
-        $usuario->setCaminhoFoto($array_usuario['foto-perfil']);
-        $usuario->setDescricao($array_usuario['descricao']);
-        $usuario->cadastro();
+        $this->usuario->setNome($array_usuario['nome']);
+        $this->usuario->setEmail($array_usuario['email']);
+        $this->usuario->setSenha(password_hash($array_usuario['senha'], PASSWORD_BCRYPT));
+        $this->usuario->setNascimento($array_usuario['data-nascimento']);
+        $this->usuario->setCaminhoFoto($array_usuario['foto-perfil']);
+        $this->usuario->setDescricao($array_usuario['descricao']);
+        $this->usuario->cadastro();
+    }
+
+    function login($array_usuario)
+    {
+        // die(var_dump($array_usuario));
+
+        $this->usuario->setEmail($array_usuario['email']);
+        $this->usuario->setSenha($array_usuario['senha']);
+        $login = $this->usuario->login();
+        if ($login) {
+            header('Location: /public/feed.php');
+        } else {
+            return false;
+        }
     }
 }

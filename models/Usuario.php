@@ -97,7 +97,26 @@ class Usuario
             $stmt->bindValue(':descricao', $this->descricao);
             $stmt->execute();
         } catch (PDOException $th) {
-            die('Erro: '.$th);
+            echo "Erro: ".$th;
         }       
+    }
+    
+    public function login()
+    {
+        // die($this->email.$this->senha);
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM usuario WHERE email = :email");
+            $stmt->bindValue(":email", $this->email);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            if (isset($result['id']) && password_verify($this->senha, $result['senha'])) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
     }
 }

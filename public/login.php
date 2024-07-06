@@ -1,3 +1,14 @@
+<?php 
+require_once dirname(__DIR__) . "/autoload.php";
+
+$login = true;
+
+if (isset($_POST['email'])) {
+    $controllerUsuario = new UsuarioController();
+    $login = $controllerUsuario->login($_POST);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,7 +18,7 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 class="text-2xl font-bold mb-6 text-center">Entrar</h2>
-        <form>
+        <form action="#" method="post">
             <div class="mb-4">
                 <label for="email" class="block text-gray-700">Email:</label>
                 <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
@@ -24,6 +35,11 @@
                 <button id="cadastro" type="button" onclick="window.location.href='public/cadastro.php'" class="text-blue-500 hover:underline">Cadastre-se</button>
             </div>
         </form>
+        <?php 
+            if (!$login) {
+                echo "<h2 class='text-2md font-bold mt-6 text-center'>E-mail ou senha incorreto!</h2>";
+            }
+        ?>
     </div>
 </body>
 </html>
