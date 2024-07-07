@@ -13,8 +13,8 @@ autenticar();
     <nav class="bg-gradient-to-r from-cyan-500 to-blue-500 fixed w-full top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <div class="flex flex-row gap-4 items-center">
-                <img src="https://via.placeholder.com/40" alt="Foto de Perfil" class="w-10 h-10 rounded-full">
-                <button class="bg-white text-blue-500 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Perfil</button>
+                <img src="<?=isset($_SESSION['foto-perfil']) ? '..'.$_SESSION['foto-perfil'] :'https://via.placeholder.com/40'?>" alt="Foto de Perfil" class="w-12 h-12 rounded-full">
+                <button class="bg-white text-blue-500 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="window.location.href='/public/perfil.php'">Perfil</button>
                 <h2 class="text-lg text-white">Olá <?=$_SESSION['usuario']?>!</h2>
             </div>
             <button class="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4"onclick="window.location.href='../config/logout.php'">Sair</button>

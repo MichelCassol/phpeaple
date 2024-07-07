@@ -107,7 +107,7 @@ class Usuario
             $stmt = $this->db->prepare("SELECT * FROM usuario WHERE email = :email");
             $stmt->bindValue(":email", $this->email);
             $stmt->execute();
-            $result = $stmt->fetch();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if (isset($result['id']) && password_verify($this->senha, $result['senha'])) {
                 return $result;
             } else {
@@ -116,6 +116,18 @@ class Usuario
         } catch (PDOException $th) {
             echo "Erro: ".$th;
             return false;
+        }
+    }
+
+    public function consultar()
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT id, nome, nascimento, descricao, foto_arquivo FROM usuario WHERE id = :id");
+            $stmt->bindValue(':id', $this->id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
         }
     }
 }

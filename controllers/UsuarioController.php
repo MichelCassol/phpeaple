@@ -32,10 +32,17 @@ class UsuarioController
         if (isset($login['id'])) {
             $_SESSION['id_usuario'] = $login['id'];
             $_SESSION['usuario'] = $login['nome'];
+            $_SESSION['foto-perfil'] = $login['foto_arquivo'];
             $_SESSION['auth'] = true;
             header('Location: /public/feed.php');
         } else {
             return false;
         }
+    }
+
+    function consultar($id)
+    {
+        $this->usuario->setId($id);
+        return $this->usuario->consultar();
     }
 }
