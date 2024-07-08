@@ -2,7 +2,7 @@
 
 class Postagem
 {
-    private $db;
+    private PDO $db;
     private int $id;
     private int $id_usuario;
     private string $postagem;
@@ -61,7 +61,34 @@ class Postagem
     public function setId($id)
     {
         $this->id = $id;
+    }
 
-        return $this;
+    public function inserir() : bool
+    {
+        try {
+            $stmt = $this->db->prepare("INSERT INTO postagem (id_usuario, texto, imagem_arquivo, data_hora_postagem) VALUES(:id_usuario, :texto, :imagem_arquivo, :data_hora)");
+            $stmt->bindValue(':id_usuario', $this->id_usuario);
+            $stmt->bindValue(':texto', $this->postagem);
+            $stmt->bindValue(':imagem_arquivo', $this->imagem_arquivo);
+            $stmt->bindValue(':data_hora', $this->data_hora);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
+    }
+
+    public function deletar() : bool
+    {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM postagem WHERE id = :id");
+            $stmt->bindValue(':id', $this->id);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
     }
 }

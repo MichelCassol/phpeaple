@@ -25,17 +25,17 @@ autenticar();
             <div class="flex">
                 <!-- Campo de Texto -->
                 <div class="w-1/2 pr-4">
-                    <label for="post-text" class="block text-gray-700 mb-2">Texto da Postagem:</label>
-                    <textarea id="post-text" name="post-text" rows="10" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                    <label for="texto-postagem" class="block text-gray-700 mb-2">Texto da Postagem:</label>
+                    <textarea id="texto-postagem" name="texto-postagem" rows="10" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
                 </div>
                 <!-- Campo de Upload de Foto -->
                 <div class="w-1/2 pl-4 flex flex-col items-center">
-                    <label for="profile-picture" class="block text-gray-700 mb-2">Foto da Postagem:</label>
-                    <label for="profile-picture" class="custom-file-upload">
+                    <label for="arquivo-postagem" class="block text-gray-700 mb-2">Foto da Postagem:</label>
+                    <label for="arquivo-postagem" class="custom-file-upload">
                         Carregar Imagem
                     </label>
-                    <input type="file" id="profile-picture" name="profile-picture" class="hidden" accept="image/*" onchange="previewImage(event)">
-                    <img id="profile-preview" src="" alt="Pré-visualização da Foto" class="hidden rounded-lg border border-gray-300 shadow-lg mt-4 w-full h-auto object-cover">
+                    <input type="file" id="arquivo-postagem" name="arquivo-postagem" class="hidden" accept="image/*" onchange="previewImage(event)">
+                    <img id="visualizacao-arquivo" src="" alt="Pré-visualização da Foto" class="hidden rounded-lg border border-gray-300 shadow-lg mt-4 w-full h-auto object-cover">
                 </div>
             </div>
             <div class="flex justify-end mt-6">
@@ -52,7 +52,7 @@ autenticar();
     function previewImage(event) {
         const reader = new FileReader();
         reader.onload = function(){
-            const preview = document.getElementById('profile-preview');
+            const preview = document.getElementById('visualizacao-arquivo');
             preview.src = reader.result;
             preview.classList.remove('hidden');
         }
