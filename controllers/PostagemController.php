@@ -14,11 +14,11 @@ class PostagemController
 
     public function inserir($array_postagem)
     {
-        $data_postagem = new DateTime('now');
+        // die(var_dump(date("Y-m-d H:i:s")));
         $this->postagem->setId_usuario($array_postagem['id_usuario']);
         $this->postagem->setPostagem($array_postagem['texto-postagem']);
         $this->postagem->setImagem_arquivo($array_postagem['caminho-arquivo']);
-        $this->postagem->setData_hora($data_postagem->format('Y-m-d H:m:s'));
+        $this->postagem->setData_hora(date("Y-m-d H:i:s"));
         return $this->postagem->inserir();
     }
 }

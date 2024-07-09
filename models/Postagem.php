@@ -20,7 +20,7 @@ class Postagem
 
     public function setData_hora($data_hora)
     {
-        $this->data_hora = $data_hora;
+        $this->data_hora = DateTime::createFromFormat('Y-m-d H:m:s', $data_hora);
     }
 
     public function getId_usuario()
@@ -70,7 +70,7 @@ class Postagem
             $stmt->bindValue(':id_usuario', $this->id_usuario);
             $stmt->bindValue(':texto', $this->postagem);
             $stmt->bindValue(':imagem_arquivo', $this->imagem_arquivo);
-            $stmt->bindValue(':data_hora', $this->data_hora);
+            $stmt->bindValue(':data_hora', $this->data_hora->format('Y-m-d H:m:s'));
             $stmt->execute();
             return true;
         } catch (PDOException $th) {

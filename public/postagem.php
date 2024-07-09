@@ -1,13 +1,35 @@
 <?php 
 require_once dirname(__DIR__) . "/config/session.php";
+require_once dirname(__DIR__) . "/autoload.php";
 autenticar();
+
+if (isset($_POST['texto-postagem'])) {
+    $postagemController = new PostagemController();
+
+    $postagem = $_POST;
+    $postagem['id_usuario'] = $_SESSION['id_usuario'];
+
+    if ($_FILES['arquivo-postagem']['size'] > 0) {
+        $pastaUpload = '/uploads/';
+        $nomeArquivo = $_FILES['arquivo-postagem']['name'];
+        $arquivo = $pastaUpload . $nomeArquivo;
+        $tmp = $_FILES['arquivo-postagem']['tmp_name'];
+        if (move_uploaded_file($tmp, dirname(__DIR__).$arquivo)) {
+            $postagem['caminho-arquivo'] = $arquivo;
+        }
+    } else {
+        $postagem['caminho-arquivo'] = "";
+    }
+
+    $postagemController->inserir($postagem);
+
+    header('Location: /public/perfil.php');
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Postagem</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="css/style.css" rel="stylesheet">
@@ -21,7 +43,7 @@ autenticar();
     </nav>
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
         <h2 class="text-2xl font-bold mb-6 text-center">Nova Postagem</h2>
-        <form>
+        <form action="#" method="post" enctype="multipart/form-data" >
             <div class="flex">
                 <!-- Campo de Texto -->
                 <div class="w-1/2 pr-4">

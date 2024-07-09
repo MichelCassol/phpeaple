@@ -20,15 +20,15 @@ $create_table_postagem = "CREATE TABLE IF NOT EXISTS postagem (
     ,texto TEXT NOT NULL
     ,imagem_arquivo VARCHAR
     ,data_hora_postagem DATE
-    ,FOREIGN KEY (id_usuario) REFERENCES usuario (id)
+    ,FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON DELETE CASCADE
 )";
 
 $create_table_curtidas = "CREATE TABLE IF NOT EXISTS curtidas (
     id INTEGER PRIMARY KEY AUTOINCREMENT
     ,id_usuario INTEGER NOT NULL
     ,id_postagem INTEGER NOT NULL
-    ,FOREIGN KEY (id_usuario) REFERENCES usuario (id)
-    ,FOREIGN KEY (id_postagem) REFERENCES postagem (id)
+    ,FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON DELETE CASCADE
+    ,FOREIGN KEY (id_postagem) REFERENCES postagem (id) ON DELETE CASCADE
 )";
 
 $create_table_comentarios = "CREATE TABLE IF NOT EXISTS comentarios (
@@ -37,16 +37,16 @@ $create_table_comentarios = "CREATE TABLE IF NOT EXISTS comentarios (
     ,id_postagem INTEGER NOT NULL
     ,comentario TEXT NOT NULL
     ,data_hora DATE NOT NULL
-    ,FOREIGN KEY (id_usuario) REFERENCES usuario (id)
-    ,FOREIGN KEY (id_postagem) REFERENCES postagem (id)
+    ,FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON DELETE CASCADE
+    ,FOREIGN KEY (id_postagem) REFERENCES postagem (id) ON DELETE CASCADE
 )";
 
 $create_table_seguidor = "CREATE TABLE IF NOT EXISTS seguidores (
     id INTEGER PRIMARY KEY AUTOINCREMENT
     ,id_usuario INTEGER NOT NULL
     ,id_seguidor INTEGER NOT NULL
-    ,FOREIGN KEY (id_usuario) REFERENCES usuario (id)
-    ,FOREIGN KEY (id_seguidor) REFERENCES usuario (id)
+    ,FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON DELETE CASCADE
+    ,FOREIGN KEY (id_seguidor) REFERENCES usuario (id) ON DELETE CASCADE
 )";
 
 try {
