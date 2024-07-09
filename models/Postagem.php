@@ -91,4 +91,17 @@ class Postagem
             return false;
         }
     }
+
+    public function postagensUsuario() : array
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM postagem WHERE id_usuario = :id_usuario ORDER BY id DESC");
+            $stmt->bindValue(':id_usuario', $this->id_usuario);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return [];
+        }
+    }
 }

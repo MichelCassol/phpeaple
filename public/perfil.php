@@ -4,10 +4,15 @@ require_once dirname(__DIR__) . "/autoload.php";
 autenticar();
 
 $controllerUsuario = new UsuarioController();
+$postagemController = new PostagemController();
 
 $dados_usuario =  $controllerUsuario->consultar($_SESSION['id_usuario']);
 
 $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
+
+$postagens = $postagemController->postsUsuario($_SESSION['id_usuario']);
+
+// die(var_dump($postagens));
 ?>
 
 <!DOCTYPE html>
@@ -36,42 +41,19 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
                 </div>
             </div>
             <div class="w-3/5  pl-8 h-full overflow-y-auto">
-                <!-- Postagem -->
-                 <h2 class="border-b text-gray-700 text-2xl mb-8">Seus posts</h2>
-                <div class="bg-white rounded-lg shadow-lg mb-8 p-6">
-                    <p class="text-gray-700 mb-4">Este é um exemplo de texto da postagem. Pode ser uma descrição, um comentário ou qualquer outro conteúdo textual.</p>
-                    <img src="https://via.placeholder.com/600x400" alt="Imagem da Postagem" class="w-full rounded-lg mb-4">
-                    <div class="flex items-center justify-between">
-                        <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">
-                            <svg class="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9l-3 3m0 0l-3-3m3 3V4m0 6v10m-7 0h14"></path></svg>
-                            Curtir
-                        </button>
-                        <span class="text-gray-600">0 curtidas</span>
+                <h2 class="border-b text-gray-700 text-2xl mb-8">Seus posts</h2>
+                <?php foreach ($postagens as $post) : ?>
+                    <div class="bg-white rounded-lg shadow-lg mb-8 p-6">
+                        <p class="text-gray-700 mb-4"><?=$post['texto']?></p>
+                        <?php if ($post['imagem_arquivo']) : ?>
+                            <img src="..<?=$post['imagem_arquivo']?>" alt="Imagem da Postagem" class="w-full rounded-lg mb-4">
+                        <?php endif ?>
+                        <div class="flex items-center justify-between">
+                            <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Curtir</button>
+                            <span class="text-gray-600">0 curtidas</span>
+                        </div>
                     </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg mb-8 p-6">
-                    <p class="text-gray-700 mb-4">Este é um exemplo de texto da postagem. Pode ser uma descrição, um comentário ou qualquer outro conteúdo textual.</p>
-                    <!-- <img src="https://via.placeholder.com/600x400" alt="Imagem da Postagem" class="w-full rounded-lg mb-4"> -->
-                    <div class="flex items-center justify-between">
-                        <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">
-                            <svg class="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9l-3 3m0 0l-3-3m3 3V4m0 6v10m-7 0h14"></path></svg>
-                            Curtir
-                        </button>
-                        <span class="text-gray-600">0 curtidas</span>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg mb-8 p-6">
-                    <p class="text-gray-700 mb-4">Este é um exemplo de texto da postagem. Pode ser uma descrição, um comentário ou qualquer outro conteúdo textual.</p>
-                    <img src="https://via.placeholder.com/600x400" alt="Imagem da Postagem" class="w-full rounded-lg mb-4">
-                    <div class="flex items-center justify-between">
-                        <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">
-                            <svg class="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9l-3 3m0 0l-3-3m3 3V4m0 6v10m-7 0h14"></path></svg>
-                            Curtir
-                        </button>
-                        <span class="text-gray-600">0 curtidas</span>
-                    </div>
-                </div>
-                <!-- Você pode repetir o bloco de postagem acima para mais postagens -->
+                <?php endforeach ?>
             </div>
         </div>
     </div>

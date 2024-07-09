@@ -21,4 +21,10 @@ class PostagemController
         $this->postagem->setData_hora(date("Y-m-d H:i:s"));
         return $this->postagem->inserir();
     }
+
+    public function postsUsuario(int $id_usuario) : array
+    {
+        $this->postagem->setId_usuario($id_usuario);
+        return $this->postagem->postagensUsuario();
+    }
 }
