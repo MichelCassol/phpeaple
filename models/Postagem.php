@@ -104,4 +104,16 @@ class Postagem
             return [];
         }
     }
+
+    public function todasPostagens() : array
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT u.nome, p.* FROM postagem AS p INNER JOIN usuario AS u ON (p.id_usuario = u.id) ORDER BY p.id DESC");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return [];
+        }
+    }
 }

@@ -1,6 +1,11 @@
 <?php 
 require_once dirname(__DIR__) . "/config/session.php";
+require_once dirname(__DIR__) . "/autoload.php";
 autenticar();
+
+$postagemController = new PostagemController();
+
+$total_posts = $postagemController->todasPostagens();
 ?>
 
 <!DOCTYPE html>
@@ -20,23 +25,22 @@ autenticar();
             <button class="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4"onclick="window.location.href='../config/logout.php'">Sair</button>
         </div>
     </nav>
-
-    <div class="mt-16"></div>
-
-    <div class="container xl:w-1/3 lg:w-3/5 sm:w-full mx-auto px-6 py-8">
-        <!-- Postagem -->
-        <div class="bg-white rounded-lg shadow-lg mb-8">
-            <div class="p-6 grid gap-4 grid-cols-1">
-                <h2 class="text-lg font-semibold">User</h2>
-                <p class="text-gray-700">Texto aqui</p>
-                <img src="https://via.placeholder.com/600x400" alt="postagem" class="w-full rounded-lg ">
-                <div class="flex items-center justify-between">
-                    <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Curtir</button>
-                    <span class="text-gray-600">0 curtidas</span>
+    <div class="container xl:w-1/3 lg:w-3/5 sm:w-full mx-auto px-6 py-8 mt-16">
+        <?php foreach ($total_posts as $post) : ?>
+            <div class="bg-white rounded-lg shadow-lg mb-8">
+                <div class="p-6 grid gap-4 grid-cols-1">
+                    <h2 class="text-lg font-semibold"><?=$post['nome']?></h2>
+                    <p class="text-gray-700"><?=$post['texto']?></p>
+                    <?php if ($post['imagem_arquivo']) : ?>
+                        <img src="..<?=$post['imagem_arquivo']?>" alt="postagem" class="w-full rounded-lg ">
+                    <?php endif ?>    
+                    <div class="flex items-center justify-between">
+                        <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Curtir</button>
+                        <span class="text-gray-600">0 curtidas</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Postagem -->
+        <?php endforeach ?>
     </div>
 </body>
 </html>

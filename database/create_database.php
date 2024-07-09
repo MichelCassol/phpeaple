@@ -12,6 +12,7 @@ $create_table_usuario = "CREATE TABLE IF NOT EXISTS usuario (
     ,email VARCHAR NOT NULL
     ,foto_arquivo VARCHAR
     ,descricao TEXT
+    ,total_visitas INT DEFAULT 0
 )";
 
 $create_table_postagem = "CREATE TABLE IF NOT EXISTS postagem (

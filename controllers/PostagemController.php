@@ -27,4 +27,9 @@ class PostagemController
         $this->postagem->setId_usuario($id_usuario);
         return $this->postagem->postagensUsuario();
     }
+
+    public function todasPostagens() : array
+    {
+        return $this->postagem->todasPostagens();
+    }
 }

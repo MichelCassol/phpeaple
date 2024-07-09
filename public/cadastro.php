@@ -15,9 +15,7 @@ if ($_GET) {
             $tmp = $_FILES['foto-perfil']['tmp_name'];
             if (move_uploaded_file($tmp, dirname(__DIR__).$arquivo)) {
                 $dados_usuario['foto-perfil'] = $arquivo;
-            } //else {
-                //Aqui vai a tela de erro
-            //}
+            }
         } else {
             $dados_usuario['foto-perfil'] = "";
         }
