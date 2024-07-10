@@ -32,4 +32,9 @@ class SeguidorController
         $this->seguidor->setId_usuario($usuario);
         return $this->seguidor->isSeguidor();
     }
+    public function totalSeguidores(int $usuario) : int
+    {
+        $this->seguidor->setId_usuario($usuario);
+        return $this->seguidor->totalSeguidores();
+    }
 }

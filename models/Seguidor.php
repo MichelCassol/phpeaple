@@ -87,4 +87,22 @@ class Seguidor
             return false;
         }
     }
+
+    public function totalSeguidores() : int
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT COUNT(id) as total FROM seguidores WHERE id_usuario = :usuario");
+            $stmt->bindValue(':usuario', $this->id_usuario);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($resultado['total'] > 0) {
+                return $resultado['total'];
+            } else {
+                return 0;
+            }
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
+    }
 }

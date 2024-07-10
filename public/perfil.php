@@ -12,6 +12,7 @@ $is_seguidor = false;
 if ($_POST['id_usuario_postagem']) {
     $is_seguidor = $seguidorController->isSeguidor($_SESSION['id_usuario'], $_POST['id_usuario_postagem']);
     $dados_usuario =  $controllerUsuario->consultar($_POST['id_usuario_postagem']);
+    $dados_usuario['total_seguidores'] = $seguidorController->totalSeguidores($_POST['id_usuario_postagem']);
     $postagens = $postagemController->postsUsuario($_POST['id_usuario_postagem']);
 } elseif ($_POST['id_usuario_seguir']) {
     if ($_POST['acao'] == "seguir") {
@@ -54,6 +55,7 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
                     <h2 class="text-2xl font-bold mb-2"><?=$dados_usuario['nome']?></h2>
                     <p class="text-gray-700 mb-2">Data de Nascimento: <?=$nascimento->format('d/m/Y')?></p>
                     <p class="text-gray-700 mb-4 text-center"><?=$dados_usuario['descricao']?></p>
+                    <p class="text-gray-700 mb-4 text-center">Total de seguidos: <?=$dados_usuario['total_seguidores']?></p>
                     <?php if (($_POST['id_usuario_postagem'] && $_POST['id_usuario_postagem'] != $_SESSION['id_usuario']) || ($_POST['id_usuario_seguir'] && $_POST['id_usuario_seguir'] != $_SESSION['id_usuario'])) : ?>
                         <?php if ($is_seguidor) : ?>
                             <form action="/public/perfil.php" method="post">
