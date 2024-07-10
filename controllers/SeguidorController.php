@@ -18,4 +18,18 @@ class SeguidorController
         $this->seguidor->setId_usuario($usuario);
         return $this->seguidor->seguir();
     }
+
+    public function deixar_seguir(int $seguidor, int $usuario)
+    {
+        $this->seguidor->setId_seguidor($seguidor);
+        $this->seguidor->setId_usuario($usuario);
+        return $this->seguidor->deixar_seguir();
+    }
+
+    public function isSeguidor(int $seguidor, int $usuario) : bool
+    {
+        $this->seguidor->setId_seguidor($seguidor);
+        $this->seguidor->setId_usuario($usuario);
+        return $this->seguidor->isSeguidor();
+    }
 }

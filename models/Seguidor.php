@@ -54,4 +54,37 @@ class Seguidor
             return false;
         }
     }
+
+    public function deixar_seguir() : bool
+    {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM seguidores WHERE id_usuario = :usuario AND id_seguidor = :seguidor");
+            $stmt->bindValue(':usuario', $this->id_usuario);
+            $stmt->bindValue(':seguidor', $this->id_seguidor);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
+    }
+
+    public function isSeguidor() : bool
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT id FROM seguidores WHERE id_usuario = :usuario AND id_seguidor = :seguidor");
+            $stmt->bindValue(':usuario', $this->id_usuario);
+            $stmt->bindValue(':seguidor', $this->id_seguidor);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($resultado['id'] > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
+    }
 }

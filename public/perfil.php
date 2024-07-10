@@ -7,17 +7,31 @@ $controllerUsuario = new UsuarioController();
 $postagemController = new PostagemController();
 $seguidorController = new SeguidorController();
 
+$is_seguidor = false;
+
 if ($_POST['id_usuario_postagem']) {
+    $is_seguidor = $seguidorController->isSeguidor($_SESSION['id_usuario'], $_POST['id_usuario_postagem']);
     $dados_usuario =  $controllerUsuario->consultar($_POST['id_usuario_postagem']);
     $postagens = $postagemController->postsUsuario($_POST['id_usuario_postagem']);
 } elseif ($_POST['id_usuario_seguir']) {
-    $seguidorController->seguir($_SESSION['id_usuario'],$_POST['id_usuario_seguir']);
+    if ($_POST['acao'] == "seguir") {
+        $seguidorController->seguir($_SESSION['id_usuario'],$_POST['id_usuario_seguir']);
+        $dados_usuario =  $controllerUsuario->consultar($_POST['id_usuario_seguir']);
+        $postagens = $postagemController->postsUsuario($_POST['id_usuario_seguir']);
+    } else {
+        $seguidorController->deixar_seguir($_SESSION['id_usuario'],$_POST['id_usuario_seguir']);
+        $dados_usuario = $controllerUsuario->consultar($_POST['id_usuario_seguir']);
+        $postagens = $postagemController->postsUsuario($_POST['id_usuario_seguir']);
+    }
+    $is_seguidor = $seguidorController->isSeguidor($_SESSION['id_usuario'], $_POST['id_usuario_seguir']);
 } else {
-    $dados_usuario =  $controllerUsuario->consultar($_SESSION['id_usuario']);
+    $dados_usuario = $controllerUsuario->consultar($_SESSION['id_usuario']);
     $postagens = $postagemController->postsUsuario($_SESSION['id_usuario']);
 }
 
 $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
+
+// die(var_dump($is_seguidor));
 ?>
 
 <!DOCTYPE html>
@@ -40,11 +54,20 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
                     <h2 class="text-2xl font-bold mb-2"><?=$dados_usuario['nome']?></h2>
                     <p class="text-gray-700 mb-2">Data de Nascimento: <?=$nascimento->format('d/m/Y')?></p>
                     <p class="text-gray-700 mb-4 text-center"><?=$dados_usuario['descricao']?></p>
-                    <?php if ($_POST['id_usuario_postagem'] && $_POST['id_usuario_postagem'] != $_SESSION['id_usuario']) : ?>
-                        <form action="/public/perfil.php" method="post">
-                            <input type="hidden" name="id_usuario_seguir" value="<?=$_POST['id_usuario_postagem']?>">
-                            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mb-4">Seguir</button>
-                        </form>
+                    <?php if (($_POST['id_usuario_postagem'] && $_POST['id_usuario_postagem'] != $_SESSION['id_usuario']) || ($_POST['id_usuario_seguir'] && $_POST['id_usuario_seguir'] != $_SESSION['id_usuario'])) : ?>
+                        <?php if ($is_seguidor) : ?>
+                            <form action="/public/perfil.php" method="post">
+                                <input type="hidden" name="id_usuario_seguir" value="<?=$_POST['id_usuario_postagem'] ? $_POST['id_usuario_postagem'] : $_POST['id_usuario_seguir']?>">
+                                <input type="hidden" name="acao" value="deixar_seguir">
+                                <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mb-4">Seguindo</button>
+                            </form>
+                        <?php else : ?>
+                            <form action="/public/perfil.php" method="post">
+                                <input type="hidden" name="id_usuario_seguir" value="<?=$_POST['id_usuario_postagem'] ? $_POST['id_usuario_postagem'] : $_POST['id_usuario_seguir']?>">
+                                <input type="hidden" name="acao" value="seguir">
+                                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mb-4">Seguir</button>
+                            </form>
+                        <?php endif ?>
                     <?php else : ?>
                         <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mb-4" onclick="window.location.href='/public/postagem.php'">Criar Nova Postagem</button>
                         <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Editar Perfil</button>
