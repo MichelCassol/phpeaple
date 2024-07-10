@@ -6,6 +6,7 @@ autenticar();
 $postagemController = new PostagemController();
 
 $total_posts = $postagemController->todasPostagens();
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +30,10 @@ $total_posts = $postagemController->todasPostagens();
         <?php foreach ($total_posts as $post) : ?>
             <div class="bg-white rounded-lg shadow-lg mb-8">
                 <div class="p-6 grid gap-4 grid-cols-1">
-                    <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none" onclick="window.location.href='/public/perfil.php'"><?=$post['nome']?></button>
+                    <form action="/public/perfil.php" method="post">
+                        <input type="hidden" name="id_usuario_postagem" value="<?=$post['id_usuario']?>">
+                        <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none"><?=$post['nome']?></button>
+                    </form>
                     <p class="text-gray-700"><?=$post['texto']?></p>
                     <?php if ($post['imagem_arquivo']) : ?>
                         <img src="..<?=$post['imagem_arquivo']?>" alt="postagem" class="w-full rounded-lg ">

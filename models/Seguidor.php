@@ -2,7 +2,7 @@
 
 class Seguidor 
 {
-    private $db;
+    private PDO $db;
     private int $id;
     private int $id_usuario;
     private int $id_seguidor;
@@ -19,8 +19,6 @@ class Seguidor
     public function setId_seguidor($id_seguidor)
     {
         $this->id_seguidor = $id_seguidor;
-
-        return $this;
     }
 
     public function getId_usuario()
@@ -31,8 +29,6 @@ class Seguidor
     public function setId_usuario($id_usuario)
     {
         $this->id_usuario = $id_usuario;
-
-        return $this;
     }
 
     public function getId()
@@ -43,5 +39,19 @@ class Seguidor
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    public function seguir() : bool
+    {
+        try {
+            $stmt = $this->db->prepare("INSERT INTO seguidores (id_usuario, id_seguidor) VALUES(:usuario, :seguidor)");
+            $stmt->bindValue(':usuario', $this->id_usuario);
+            $stmt->bindValue(':seguidor', $this->id_seguidor);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
     }
 }
