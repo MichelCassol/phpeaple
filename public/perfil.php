@@ -53,6 +53,9 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
         <div class="bg-white rounded-lg shadow-lg p-8 flex h-[90%]">
             <div class="w-2/5 pr-8 h-full flex flex-col items-center mt-8">
                     <img src="<?=$dados_usuario['foto_arquivo']?>"  class="w-40 h-40 rounded-full mb-4">
+=======
+                    <img src="<?=$dados_usuario['foto_arquivo']?>" class="w-40 h-40 border border-gray-300 rounded-full mb-4">
+>>>>>>> a665597c6025e0b877789c77931b3a13685e20b7
                     <h2 class="text-2xl font-bold mb-2"><?=$dados_usuario['nome']?></h2>
                     <p class="text-gray-700 mb-2">Data de Nascimento: <?=$nascimento->format('d/m/Y')?></p>
                     <p class="text-gray-700 mb-4 text-center"><?=$dados_usuario['descricao']?></p>

@@ -1,5 +1,7 @@
 <?php 
+require_once dirname(__DIR__) . "/config/session.php";
 require_once dirname(__DIR__) . "/autoload.php";
+autenticar();
 
 if ($_POST) {
     $controllerUsuario = new UsuarioController();
@@ -30,7 +32,7 @@ if ($_POST) {
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <form method="post" action="/public/cadastro.php" enctype="multipart/form-data" id="registration-form" class="xl:w-1/3 lg:w-3/5">
+    <form method="post" action="/public/atualiza.php" enctype="multipart/form-data" id="registration-form" class="xl:w-1/3 lg:w-3/5">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl flex">
             <div class="w-3/4 pr-8">
                 <h2 class="text-2xl font-bold mb-6 text-center">Cadastro</h2>
