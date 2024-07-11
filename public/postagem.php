@@ -37,7 +37,7 @@ if (isset($_POST['texto-postagem'])) {
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <nav class="bg-gradient-to-r from-cyan-500 to-blue-500 fixed w-full top-0 z-10">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <img src="<?=isset($_SESSION['foto-perfil']) ? '..'.$_SESSION['foto-perfil'] :'https://via.placeholder.com/40'?>" alt="Foto de Perfil" class="w-12 h-12 rounded-full">
+            <img src="<?=$_SESSION['foto-perfil']?>" class="w-12 h-12 border bg-gray-300 rounded-full">
             <button class="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4" onclick="window.location.href='../config/logout.php'">Sair</button>
         </div>
     </nav>
@@ -45,19 +45,17 @@ if (isset($_POST['texto-postagem'])) {
         <h2 class="text-2xl font-bold mb-6 text-center">Nova Postagem</h2>
         <form action="#" method="post" enctype="multipart/form-data" >
             <div class="flex">
-                <!-- Campo de Texto -->
                 <div class="w-1/2 pr-4">
                     <label for="texto-postagem" class="block text-gray-700 mb-2">Texto da Postagem:</label>
                     <textarea id="texto-postagem" name="texto-postagem" rows="10" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
                 </div>
-                <!-- Campo de Upload de Foto -->
                 <div class="w-1/2 pl-4 flex flex-col items-center">
                     <label for="arquivo-postagem" class="block text-gray-700 mb-2">Foto da Postagem:</label>
+                    <img id="visualizacao-arquivo" src="" class=" rounded-lg border border-gray-300 shadow-lg w-full h-auto object-cover">
                     <label for="arquivo-postagem" class="custom-file-upload">
                         Carregar Imagem
                     </label>
                     <input type="file" id="arquivo-postagem" name="arquivo-postagem" class="hidden" accept="image/*" onchange="previewImage(event)">
-                    <img id="visualizacao-arquivo" src="" alt="Pré-visualização da Foto" class="hidden rounded-lg border border-gray-300 shadow-lg mt-4 w-full h-auto object-cover">
                 </div>
             </div>
             <div class="flex justify-end mt-6">
