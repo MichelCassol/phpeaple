@@ -18,21 +18,22 @@ if ($_POST['id_usuario_postagem']) {
     if ($_POST['acao'] == "seguir") {
         $seguidorController->seguir($_SESSION['id_usuario'],$_POST['id_usuario_seguir']);
         $dados_usuario =  $controllerUsuario->consultar($_POST['id_usuario_seguir']);
+        $dados_usuario['total_seguidores'] = $seguidorController->totalSeguidores($_POST['id_usuario_seguir']);
         $postagens = $postagemController->postsUsuario($_POST['id_usuario_seguir']);
     } else {
         $seguidorController->deixar_seguir($_SESSION['id_usuario'],$_POST['id_usuario_seguir']);
         $dados_usuario = $controllerUsuario->consultar($_POST['id_usuario_seguir']);
+        $dados_usuario['total_seguidores'] = $seguidorController->totalSeguidores($_POST['id_usuario_seguir']);
         $postagens = $postagemController->postsUsuario($_POST['id_usuario_seguir']);
     }
     $is_seguidor = $seguidorController->isSeguidor($_SESSION['id_usuario'], $_POST['id_usuario_seguir']);
 } else {
     $dados_usuario = $controllerUsuario->consultar($_SESSION['id_usuario']);
+    $dados_usuario['total_seguidores'] = $seguidorController->totalSeguidores($_SESSION['id_usuario']);
     $postagens = $postagemController->postsUsuario($_SESSION['id_usuario']);
 }
 
 $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
-
-// die(var_dump($is_seguidor));
 ?>
 
 <!DOCTYPE html>
