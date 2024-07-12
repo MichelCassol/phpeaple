@@ -45,4 +45,15 @@ class UsuarioController
         $this->usuario->setId($id);
         return $this->usuario->consultar();
     }
+
+    function atualizaCadastro($array_usuario)
+    {
+        $this->usuario->setNome($array_usuario['nome']);
+        $this->usuario->setEmail($array_usuario['email']);
+        $this->usuario->setSenha(password_hash($array_usuario['senha'], PASSWORD_BCRYPT));
+        $this->usuario->setNascimento($array_usuario['data-nascimento']);
+        $this->usuario->setCaminhoFoto($array_usuario['foto-perfil']);
+        $this->usuario->setDescricao($array_usuario['descricao']);
+        $this->usuario->cadastro();
+    }
 }

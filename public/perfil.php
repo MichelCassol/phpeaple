@@ -52,10 +52,7 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
     <div class="mt-16 container mx-auto p-8">
         <div class="bg-white rounded-lg shadow-lg p-8 flex h-[90%]">
             <div class="w-2/5 pr-8 h-full flex flex-col items-center mt-8">
-                    <img src="<?=$dados_usuario['foto_arquivo']?>"  class="w-40 h-40 rounded-full mb-4">
-=======
                     <img src="<?=$dados_usuario['foto_arquivo']?>" class="w-40 h-40 border border-gray-300 rounded-full mb-4">
->>>>>>> a665597c6025e0b877789c77931b3a13685e20b7
                     <h2 class="text-2xl font-bold mb-2"><?=$dados_usuario['nome']?></h2>
                     <p class="text-gray-700 mb-2">Data de Nascimento: <?=$nascimento->format('d/m/Y')?></p>
                     <p class="text-gray-700 mb-4 text-center"><?=$dados_usuario['descricao']?></p>
@@ -76,11 +73,11 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
                         <?php endif ?>
                     <?php else : ?>
                         <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mb-4" onclick="window.location.href='/public/postagem.php'">Criar Nova Postagem</button>
-                        <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Editar Perfil</button>
+                        <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50" onclick="window.location.href='/public/atualiza.php'">Editar Perfil</button>
                     <?php endif ?>
             </div>
             <div class="w-3/5  pl-8 h-full overflow-y-auto flex flex-col items-center ">
-                <h2 class="border-b text-gray-700 text-2xl mb-8">Seus posts</h2>
+                <h2 class="border-b text-gray-700 w-full text-2xl mb-8">Seus posts</h2>
                 <?php foreach ($postagens as $postagem) : ?>
                     <div class="bg-white rounded-lg shadow-lg mb-8 p-6 w-3/4">
                         <p class="text-gray-700 mb-4"><?=$postagem['texto']?></p>

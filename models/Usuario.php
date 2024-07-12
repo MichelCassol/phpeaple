@@ -122,7 +122,7 @@ class Usuario
     public function consultar()
     {
         try {
-            $stmt = $this->db->prepare("SELECT id, nome, nascimento, descricao, foto_arquivo FROM usuario WHERE id = :id");
+            $stmt = $this->db->prepare("SELECT id, nome, nascimento, descricao, foto_arquivo, email FROM usuario WHERE id = :id");
             $stmt->bindValue(':id', $this->id);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
