@@ -34,7 +34,7 @@ class UsuarioController
             $_SESSION['usuario'] = $login['nome'];
             $_SESSION['foto-perfil'] = $login['foto_arquivo'];
             $_SESSION['auth'] = true;
-            header('Location: /public/feed.php');
+            return true;
         } else {
             return false;
         }
@@ -48,12 +48,17 @@ class UsuarioController
 
     function atualizaCadastro($array_usuario)
     {
-        $this->usuario->setNome($array_usuario['nome']);
         $this->usuario->setEmail($array_usuario['email']);
-        $this->usuario->setSenha(password_hash($array_usuario['senha'], PASSWORD_BCRYPT));
-        $this->usuario->setNascimento($array_usuario['data-nascimento']);
-        $this->usuario->setCaminhoFoto($array_usuario['foto-perfil']);
-        $this->usuario->setDescricao($array_usuario['descricao']);
-        $this->usuario->cadastro();
+        $this->usuario->setSenha($array_usuario['senha']);
+        $resultado = $this->usuario->login();
+        if (isset($resultado['id'])) {
+            $this->usuario->setNome($array_usuario['nome']);
+            $this->usuario->setEmail($array_usuario['email']);
+            $this->usuario->setSenha(password_hash($array_usuario['novasenha'], PASSWORD_BCRYPT));
+            $this->usuario->setNascimento($array_usuario['data-nascimento']);
+            $this->usuario->setCaminhoFoto($array_usuario['foto-perfil']);
+            $this->usuario->setDescricao($array_usuario['descricao']);
+            return $this->usuario->cadastro();
+        }
     }
 }

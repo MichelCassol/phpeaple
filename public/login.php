@@ -6,6 +6,9 @@ $login = true;
 if (isset($_POST['email'])) {
     $controllerUsuario = new UsuarioController();
     $login = $controllerUsuario->login($_POST);
+    if($login) {
+        header('Location: /public/feed.php');
+    }
 }
 ?>
 

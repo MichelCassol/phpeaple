@@ -5,8 +5,15 @@ autenticar();
 
 $controllerUsuario = new UsuarioController();
 
+$login = true;
+
+
 if ($_POST) {
     $dados_usuario = $_POST;    
+
+    $login = $controllerUsuario->login($_POST);
+
+    die(var_dump($login));
 
     if ($_FILES['foto-perfil']['size'] > 0) {
         $pastaUpload = '/uploads/';
@@ -72,6 +79,9 @@ if ($_POST) {
                     <button type="button" onclick="window.location.href='/public/perfil.php'" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Cancelar</button>
                     <button type="button" onclick="window.location.href='/public/perfil.php'" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Excluir conta</button>
                 </div>
+                <?php if (!$login) : ?>
+                    <h2 class='text-2md font-bold mt-6 text-center'>E-mail ou senha incorreto!</h2>
+                <?php endif ?>
             </div>
             <div class="w-1/4 flex row items-center justify-center">
                 <div class="gap-4 flex flex-col justify-center items-center ">
