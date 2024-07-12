@@ -24,6 +24,12 @@ class UsuarioController
         $this->usuario->cadastro();
     }
 
+    public function deletar(array $usuario)
+    {
+        $this->usuario->setId($usuario);
+        return $this->usuario->deletar();
+    }
+
     function login($array_usuario)
     {
         $this->usuario->setEmail($array_usuario['email']);
