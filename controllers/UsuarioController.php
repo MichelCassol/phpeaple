@@ -40,6 +40,13 @@ class UsuarioController
         }
     }
 
+    public function validaSenha(int $id_usuario, string $senha) : bool
+    {
+        $this->usuario->setId($id_usuario);
+        $this->usuario->setSenha($senha);
+        return $this->usuario->validaSenha();
+    }
+
     function consultar($id)
     {
         $this->usuario->setId($id);
@@ -48,17 +55,19 @@ class UsuarioController
 
     function atualizaCadastro($array_usuario)
     {
+        $this->usuario->setId($array_usuario['id']);
+        $this->usuario->setNome($array_usuario['nome']);
         $this->usuario->setEmail($array_usuario['email']);
-        $this->usuario->setSenha($array_usuario['senha']);
-        $resultado = $this->usuario->login();
-        if (isset($resultado['id'])) {
-            $this->usuario->setNome($array_usuario['nome']);
-            $this->usuario->setEmail($array_usuario['email']);
-            $this->usuario->setSenha(password_hash($array_usuario['novasenha'], PASSWORD_BCRYPT));
-            $this->usuario->setNascimento($array_usuario['data-nascimento']);
-            $this->usuario->setCaminhoFoto($array_usuario['foto-perfil']);
-            $this->usuario->setDescricao($array_usuario['descricao']);
-            return $this->usuario->cadastro();
+        $this->usuario->setNascimento($array_usuario['data-nascimento']);
+        $this->usuario->setCaminhoFoto($array_usuario['foto-perfil']);
+        $this->usuario->setDescricao($array_usuario['descricao']);
+
+        if (isset($array_usuario['nova-senha']) && $array_usuario['nova-senha'] !== "") {
+            die(var_dump($array_usuario['nova-senha']));
+            $this->usuario->setSenha(password_hash($array_usuario['nova-senha'], PASSWORD_BCRYPT));
+        }
+        if($this->usuario->atualizar()){
+            return $this->usuario->consultar();
         }
     }
 }

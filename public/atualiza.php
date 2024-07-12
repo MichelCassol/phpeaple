@@ -3,32 +3,48 @@ require_once dirname(__DIR__) . "/config/session.php";
 require_once dirname(__DIR__) . "/autoload.php";
 autenticar();
 
+function uploadArquivo(array $arquivoUpload, string $fotoAntiga)
+{
+    if ($arquivoUpload['foto-perfil']['size'] > 0) {
+        $pastaUpload = '/uploads/perfil-';
+        $nomeArquivo = $arquivoUpload['foto-perfil']['name'];
+        $arquivo = $pastaUpload . $nomeArquivo;
+        $tmp = $arquivoUpload['foto-perfil']['tmp_name'];
+        if (move_uploaded_file($tmp, dirname(__DIR__).$arquivo)) {
+            unlink('..'.$fotoAntiga);
+            return $arquivo;
+        }
+    } else {
+        return $fotoAntiga;
+    }
+}
+
 $controllerUsuario = new UsuarioController();
 
 $login = true;
-
+$senhaInvalida = true;
 
 if ($_POST) {
-    $dados_usuario = $_POST;    
+    $dados_usuario = $_POST;  
+    $dados_usuario['id'] = $_SESSION['id_usuario'];
 
-    $login = $controllerUsuario->login($_POST);
+    $senha = $dados_usuario['senha'];
+    $novaSenha = $dados_usuario['nova-senha'];
+    $novaSenhaRep = $dados_usuario['nova-senha-rep'];
 
-    die(var_dump($login));
-
-    if ($_FILES['foto-perfil']['size'] > 0) {
-        $pastaUpload = '/uploads/';
-        $nomeArquivo = $_FILES['foto-perfil']['name'];
-        $arquivo = $pastaUpload . $nomeArquivo;
-        $tmp = $_FILES['foto-perfil']['tmp_name'];
-        if (move_uploaded_file($tmp, dirname(__DIR__).$arquivo)) {
-            unlink($dados_usuario['foto-antiga']);
-            $dados_usuario['foto-perfil'] = $arquivo;
+    if (($senha && $novaSenha && $novaSenhaRep) && ($novaSenha == $novaSenhaRep)) {
+        $login = $controllerUsuario->validaSenha($_SESSION['id_usuario'], $senha);
+        if ($login) {
+            $dados_usuario['foto-perfil'] = uploadArquivo($_FILES, $dados_usuario['foto-antiga']);
+            $dados_usuario = $controllerUsuario->atualizaCadastro($dados_usuario);
         }
+    } elseif(!$senha && !$novaSenha && !$novaSenhaRep) {
+        $dados_usuario['foto-perfil'] = uploadArquivo($_FILES, $dados_usuario['foto-antiga']);
+        $dados_usuario = $controllerUsuario->atualizaCadastro($dados_usuario);
     } else {
-        $dados_usuario['foto-perfil'] = "";
+        $senhaInvalida = false;
     }
-
-    $controllerUsuario->atualizaCadastro($dados_usuario);
+    $dados_usuario = $controllerUsuario->consultar($_SESSION['id_usuario']);
 } else {
     $dados_usuario = $controllerUsuario->consultar($_SESSION['id_usuario']);
 }
@@ -81,6 +97,8 @@ if ($_POST) {
                 </div>
                 <?php if (!$login) : ?>
                     <h2 class='text-2md font-bold mt-6 text-center'>E-mail ou senha incorreto!</h2>
+                <?php elseif (!$senhaInvalida) : ?>
+                    <h2 class='text-2md font-bold mt-6 text-center'>As senhas não conferem!</h2>
                 <?php endif ?>
             </div>
             <div class="w-1/4 flex row items-center justify-center">

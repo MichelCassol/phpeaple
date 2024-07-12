@@ -7,7 +7,7 @@ if ($_POST) {
     $dados_usuario = $_POST;    
 
     if ($_FILES['foto-perfil']['size'] > 0) {
-        $pastaUpload = '/uploads/';
+        $pastaUpload = '/uploads/perfil-';
         $nomeArquivo = $_FILES['foto-perfil']['name'];
         $arquivo = $pastaUpload . $nomeArquivo;
         $tmp = $_FILES['foto-perfil']['tmp_name'];

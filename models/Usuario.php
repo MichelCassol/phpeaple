@@ -100,6 +100,38 @@ class Usuario
             echo "Erro: ".$th;
         }       
     }
+
+    public function atualizar() 
+    {
+        if (isset($this->senha)) {
+            try {
+                $stmt = $this->db->prepare("UPDATE usuario SET nome = :nome, senha = :senha, email = :email, nascimento = :nascimento, foto_arquivo = :foto_arquivo, descricao = :descricao WHERE id = :id");
+                $stmt->bindValue(':nome', $this->nome);
+                $stmt->bindValue(':senha', $this->senha);
+                $stmt->bindValue(':email', $this->email);
+                $stmt->bindValue(':nascimento', $this->nascimento->format('Y-m-d'));
+                $stmt->bindValue(':foto_arquivo', $this->caminhoFoto);
+                $stmt->bindValue(':descricao', $this->descricao);
+                $stmt->bindValue(':id', $this->id);
+                $stmt->execute();
+            } catch (PDOException $th) {
+                echo "Erro: ".$th;
+            } 
+        } else {
+            try {
+                $stmt = $this->db->prepare("UPDATE usuario SET nome = :nome, email = :email, nascimento = :nascimento, foto_arquivo = :foto_arquivo, descricao = :descricao WHERE id = :id");
+                $stmt->bindValue(':nome', $this->nome);
+                $stmt->bindValue(':email', $this->email);
+                $stmt->bindValue(':nascimento', $this->nascimento->format('Y-m-d'));
+                $stmt->bindValue(':foto_arquivo', $this->caminhoFoto);
+                $stmt->bindValue(':descricao', $this->descricao);
+                $stmt->bindValue(':id', $this->id);
+                $stmt->execute();
+            } catch (PDOException $th) {
+                echo "Erro: ".$th;
+            } 
+        }
+    }
     
     public function login()
     {
@@ -112,6 +144,24 @@ class Usuario
                 return $result;
             } else {
                 return [];
+            }
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
+    }
+
+    public function validaSenha()
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM usuario WHERE id = :id");
+            $stmt->bindValue(":id", $this->id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (isset($result['id']) && password_verify($this->senha, $result['senha'])) {
+                return true;
+            } else {
+                return false;
             }
         } catch (PDOException $th) {
             echo "Erro: ".$th;
