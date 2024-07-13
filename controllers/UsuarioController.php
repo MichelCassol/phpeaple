@@ -34,6 +34,12 @@ class UsuarioController
         }
     }
 
+    public function arquivosUsuario(int $usuario)
+    {
+        $this->usuario->setId($usuario);
+        return $this->usuario->arquivosUsuario();
+    }
+
     function login($array_usuario)
     {
         $this->usuario->setEmail($array_usuario['email']);

@@ -6,7 +6,7 @@ autenticar();
 function uploadArquivo(array $arquivoUpload, string $fotoAntiga)
 {
     if ($arquivoUpload['foto-perfil']['size'] > 0) {
-        $pastaUpload = '/uploads/perfil-';
+        $pastaUpload = "/uploads/".date('YmdHms')."-perfil-";
         $nomeArquivo = $arquivoUpload['foto-perfil']['name'];
         $arquivo = $pastaUpload . $nomeArquivo;
         $tmp = $arquivoUpload['foto-perfil']['tmp_name'];
@@ -93,7 +93,7 @@ if ($_POST) {
                 <div class="flex items-center justify-between">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Atualizar</button>
                     <button type="button" onclick="window.location.href='/public/perfil.php'" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Cancelar</button>
-                    <button type="submit" onclick="window.location.href='/public/deleta_conta.php'" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Excluir conta</button>
+                    <button type="button" onclick="window.location.href='/public/deleta_conta.php'" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Excluir conta</button>
                 </div>
                 <?php if (!$login) : ?>
                     <h2 class='text-2md font-bold mt-6 text-center'>E-mail ou senha incorreto!</h2>

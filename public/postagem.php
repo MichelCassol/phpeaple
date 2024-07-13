@@ -10,7 +10,7 @@ if (isset($_POST['texto-postagem'])) {
     $postagem['id_usuario'] = $_SESSION['id_usuario'];
 
     if ($_FILES['arquivo-postagem']['size'] > 0) {
-        $pastaUpload = '/uploads/post-';
+        $pastaUpload = "/uploads/".date('YmdHms')."-post-";
         $nomeArquivo = $_FILES['arquivo-postagem']['name'];
         $arquivo = $pastaUpload . $nomeArquivo;
         $tmp = $_FILES['arquivo-postagem']['tmp_name'];

@@ -5,6 +5,12 @@ autenticar();
 
 $controllerUsuario = new UsuarioController();
 
+$arquivos = $controllerUsuario->arquivosUsuario($_SESSION['id_usuario']);
+
+foreach ($arquivos as $arquivo) {
+    unlink('..'.$arquivo['arquivo']);
+}
+
 $controllerUsuario->deletar($_SESSION['id_usuario']);
 
 require_once dirname(__DIR__) . "/config/logout.php";

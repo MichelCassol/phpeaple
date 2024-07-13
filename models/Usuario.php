@@ -169,6 +169,25 @@ class Usuario
         }
     }
 
+    public function arquivosUsuario()
+    {
+        try {
+            $stmt = $this->db->prepare(
+                "SELECT u.foto_arquivo AS arquivo
+                 FROM usuario AS u WHERE u.id = :id
+                 UNION ALL 
+                 SELECT p.imagem_arquivo AS arquivo
+                 FROM postagem AS p WHERE p.id_usuario = :id"
+            );
+            $stmt->bindValue(":id", $this->id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
+    }
+
     public function deletar()
     {
         try {
