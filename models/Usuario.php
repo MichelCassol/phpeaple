@@ -169,6 +169,19 @@ class Usuario
         }
     }
 
+    public function deletar()
+    {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM usuario WHERE id = :id");
+            $stmt->bindValue(":id", $this->id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return false;
+        }
+    }
+
     public function consultar()
     {
         try {

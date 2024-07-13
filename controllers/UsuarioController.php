@@ -24,10 +24,14 @@ class UsuarioController
         $this->usuario->cadastro();
     }
 
-    public function deletar(array $usuario)
+    public function deletar(int $usuario)
     {
         $this->usuario->setId($usuario);
-        return $this->usuario->deletar();
+        if($this->usuario->deletar()){
+            header('Location: ../config/logout.php');
+        } else {
+            return false;
+        }
     }
 
     function login($array_usuario)
@@ -69,7 +73,6 @@ class UsuarioController
         $this->usuario->setDescricao($array_usuario['descricao']);
 
         if (isset($array_usuario['nova-senha']) && $array_usuario['nova-senha'] !== "") {
-            die(var_dump($array_usuario['nova-senha']));
             $this->usuario->setSenha(password_hash($array_usuario['nova-senha'], PASSWORD_BCRYPT));
         }
         if($this->usuario->atualizar()){
