@@ -44,9 +44,16 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
 </head>
 <body class="bg-gray-100">
     <nav class="bg-gradient-to-r from-cyan-500 to-blue-500 fixed w-full top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <button class="bg-white text-blue-500 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="window.location.href='/public/feed.php'">Feed</button>
-            <button class="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4" onclick="window.location.href='../config/logout.php'">Sair</button>
+        <div class="container mx-auto px-6 py-3 grid grid-cols-3 justify-between items-center">
+            <div class="flex flex-row gap-4 items-center">
+                <button class="bg-white text-blue-500 px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" onclick="window.location.href='/public/feed.php'">Feed</button>
+            </div>
+            <div class="flex flex-row justify-center items-center">
+                <h2 class="text-white text-2xl"><span class="font-bold italic text-4xl">PHP</span>eople</h2>
+            </div>
+            <div class="flex flex-row justify-end items-center">
+                <button class="bg-red-500 text-white px-2 py-1 w-16 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4" onclick="window.location.href='../config/logout.php'">Sair</button>
+            </div>
         </div>
     </nav>
     <div class="mt-16 container mx-auto p-8">

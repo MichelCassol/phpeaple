@@ -36,10 +36,12 @@ if ($_POST) {
         $login = $controllerUsuario->validaSenha($_SESSION['id_usuario'], $senha);
         if ($login) {
             $dados_usuario['foto-perfil'] = uploadArquivo($_FILES, $dados_usuario['foto-antiga']);
+            $_SESSION['foto-perfil'] = $dados_usuario['foto-perfil'];
             $dados_usuario = $controllerUsuario->atualizaCadastro($dados_usuario);
         }
     } elseif(!$senha && !$novaSenha && !$novaSenhaRep) {
         $dados_usuario['foto-perfil'] = uploadArquivo($_FILES, $dados_usuario['foto-antiga']);
+        $_SESSION['foto-perfil'] = $dados_usuario['foto-perfil'];
         $dados_usuario = $controllerUsuario->atualizaCadastro($dados_usuario);
     } else {
         $senhaInvalida = false;
@@ -58,7 +60,18 @@ if ($_POST) {
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <form method="post" action="/public/atualiza.php" enctype="multipart/form-data" id="registration-form" class="xl:w-1/3 lg:w-3/5">
+    <nav class="bg-gradient-to-r from-cyan-500 to-blue-500 fixed w-full h-16 top-0 z-10">
+        <div class="container mx-auto px-6 py-3 grid grid-cols-3 justify-between items-center">
+            <div class="flex flex-row gap-4 items-center"></div>
+            <div class="flex flex-row justify-center items-center">
+                <h2 class="text-white text-2xl"><span class="font-bold italic text-4xl">PHP</span>eople</h2>
+            </div>
+            <div class="flex flex-row justify-end items-center">
+                <button class="bg-red-500 text-white px-2 py-1 w-16 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4" onclick="window.location.href='../config/logout.php'">Sair</button>
+            </div>
+        </div>
+    </nav>
+    <form method="post" action="/public/atualiza.php" enctype="multipart/form-data" id="registration-form" class=" mt-20 xl:w-1/3 lg:w-3/5">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl flex">
             <div class="w-3/4 pr-8">
                 <h2 class="text-2xl font-bold mb-6 text-center">Atualizar perfil</h2>

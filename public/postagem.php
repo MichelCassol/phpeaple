@@ -36,9 +36,14 @@ if (isset($_POST['texto-postagem'])) {
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <nav class="bg-gradient-to-r from-cyan-500 to-blue-500 fixed w-full top-0 z-10">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <img src="<?=$_SESSION['foto-perfil']?>" class="w-12 h-12 border bg-gray-300 rounded-full">
-            <button class="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4" onclick="window.location.href='../config/logout.php'">Sair</button>
+        <div class="container mx-auto px-6 py-3 grid grid-cols-3 justify-between items-center">
+            <div class="flex flex-row gap-4 items-center"></div>
+            <div class="flex flex-row justify-center items-center">
+                <h2 class="text-white text-2xl"><span class="font-bold italic text-4xl">PHP</span>eople</h2>
+            </div>
+            <div class="flex flex-row justify-end items-center">
+                <button class="bg-red-500 text-white px-2 py-1 w-16 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4" onclick="window.location.href='../config/logout.php'">Sair</button>
+            </div>
         </div>
     </nav>
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
