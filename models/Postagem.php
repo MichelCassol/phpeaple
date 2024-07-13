@@ -116,4 +116,17 @@ class Postagem
             return [];
         }
     }
+
+    public function consultar() : array
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT u.nome AS nome_usuario, p.* FROM postagem AS p INNER JOIN usuario AS u ON (p.id_usuario = u.id) WHERE p.id = :id");
+            $stmt->bindValue(':id', $this->id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+            return [];
+        }
+    }
 }

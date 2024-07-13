@@ -32,4 +32,10 @@ class PostagemController
     {
         return $this->postagem->todasPostagens();
     }
+
+    public function consultar(int $id) : array
+    {
+        $this->postagem->setId($id);
+        return $this->postagem->consultar();
+    }
 }

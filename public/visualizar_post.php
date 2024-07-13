@@ -1,3 +1,29 @@
+<?php 
+require_once dirname(__DIR__) . "/config/session.php";
+require_once dirname(__DIR__) . "/autoload.php";
+autenticar();
+
+if ($_POST) {
+    $id_postagem = $_POST['id_postagem'];
+    $postagemController = new PostagemController();
+    $curtidasController = new CurtidaController();
+
+    if ($_POST['acao'] && $_POST['acao'] == 'curtir') {
+        $curtidasController->inserir($id_postagem, $_SESSION['id_usuario']);
+    } elseif($_POST['acao'] && $_POST['acao'] == 'descurtir') {
+        $curtidasController->remover($id_postagem, $_SESSION['id_usuario']);
+    }
+
+    $postagem = $postagemController->consultar($id_postagem);
+
+    $total_curtidas = $curtidasController->totalCurtidas($id_postagem);
+
+    $ja_curtiu = $curtidasController->consultar($id_postagem, $_SESSION['id_usuario']);
+} else {
+    header('Location: /public/feed.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -21,20 +47,31 @@
     <div class="container mt-16 mx-auto p-8" style="max-width: 70%;">
         <div class="bg-white rounded-lg shadow-lg p-8 flex">
             <!-- Coluna Esquerda: Postagem -->
-            <div class="w-2/3 pr-8">
+            <div class="w-2/3 grid grid-col-1 pr-8">
                 <div class="mb-4">
-                    <h2 class="text-xl font-bold">Nome do Usuário</h2>
-                    <p class="text-gray-700 mt-2">Este é um exemplo de texto da postagem. Pode ser uma descrição, um comentário ou qualquer outro conteúdo textual.</p>
+                    <h2 class="text-xl font-bold"><?=$postagem['nome_usuario']?></h2>
+                    <p class="text-gray-700 mt-2"><?=$postagem['texto']?></p>
                 </div>
                 <div class="mb-4">
-                    <img src="https://via.placeholder.com/600x400" alt="Imagem da Postagem" class="w-full rounded-lg mb-4">
+                    <?php if ($postagem['imagem_arquivo']) : ?>
+                        <img src="..<?=$postagem['imagem_arquivo']?>" alt="postagem" class="w-full rounded-lg mb-4">
+                    <?php endif ?>  
                 </div>
-                <div class="flex items-center justify-between">
-                    <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">
-                        <svg class="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9l-3 3m0 0l-3-3m3 3V4m0 6v10m-7 0h14"></path></svg>
-                        Curtir
-                    </button>
-                    <span class="text-gray-600">0 curtidas</span>
+                <div class="flex items-end justify-between">
+                    <?php if (!$ja_curtiu) : ?>
+                        <form method="post">
+                            <input type="hidden" name="id_postagem" value="<?=$postagem['id']?>">
+                            <input type="hidden" name="acao" value="curtir">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Curtir</button>
+                        </form>
+                    <?php else : ?>
+                        <form method="post">
+                            <input type="hidden" name="id_postagem" value="<?=$postagem['id']?>">
+                            <input type="hidden" name="acao" value="descurtir">
+                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Descurtir</button>
+                        </form>
+                    <?php endif ?>
+                    <span class="text-gray-600"><?=$total_curtidas?> curtidas</span>
                 </div>
             </div>
 

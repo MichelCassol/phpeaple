@@ -45,7 +45,7 @@ $total_posts = $postagemController->todasPostagens();
                     <?php endif ?>    
                     <div class="flex items-center justify-between">
                         <form action="/public/visualizar_post.php" method="post">
-                            <input type="hidden" name="id_usuario" value="<?=$post['id']?>">
+                            <input type="hidden" name="id_postagem" value="<?=$post['id']?>">
                             <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Ver post</button>
                         </form>
                         <span class="text-gray-600">0 curtidas</span>
