@@ -95,4 +95,16 @@ class Curtida
 			return false;
 		}
 	}
+
+	public function curtidasPorPost()
+	{
+		try {
+			$stmt = $this->db->prepare("SELECT COUNT(id) as total, id_postagem FROM curtidas GROUP BY id_postagem");
+			$stmt->execute();
+			return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		} catch (PDOException $th) {
+			echo "Erro: ".$th;
+			return false;
+		}
+	}
 }

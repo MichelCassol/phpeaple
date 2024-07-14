@@ -38,6 +38,11 @@ class CurtidaController
         }
     }
 
+    function curtidasPorPost()
+    {
+        return $this->curtida->curtidasPorPost();
+    }
+
     function totalCurtidas(int $id_postagem)
     {
         $this->curtida->setId_postagem($id_postagem);

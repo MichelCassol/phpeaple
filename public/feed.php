@@ -4,9 +4,22 @@ require_once dirname(__DIR__) . "/autoload.php";
 autenticar();
 
 $postagemController = new PostagemController();
+$curtidasController = new CurtidaController();
 
 $total_posts = $postagemController->todasPostagens();
 
+$curtidas_post = $curtidasController->curtidasPorPost();
+
+foreach ($total_posts as $key => $post) {
+    foreach ($curtidas_post as $chave => $curtida) {
+        if ($total_posts[$key]['id'] == $curtidas_post[$chave]['id_postagem']) {
+            $total_posts[$key]['total-curtidas'] = $curtidas_post[$chave]['total'];
+            break;
+        } else {
+            $total_posts[$key]['total-curtidas'] = 0;
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +61,7 @@ $total_posts = $postagemController->todasPostagens();
                             <input type="hidden" name="id_postagem" value="<?=$post['id']?>">
                             <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Ver post</button>
                         </form>
-                        <span class="text-gray-600">0 curtidas</span>
+                        <span class="text-gray-600"><?=$post['total-curtidas']?> curtidas</span>
                     </div>
                 </div>
             </div>

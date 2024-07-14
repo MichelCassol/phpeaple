@@ -14,7 +14,6 @@ class PostagemController
 
     public function inserir($array_postagem)
     {
-        // die(var_dump(date("Y-m-d H:i:s")));
         $this->postagem->setId_usuario($array_postagem['id_usuario']);
         $this->postagem->setPostagem($array_postagem['texto-postagem']);
         $this->postagem->setImagem_arquivo($array_postagem['caminho-arquivo']);
