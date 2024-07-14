@@ -7,11 +7,19 @@ if ($_POST) {
     $id_postagem = $_POST['id_postagem'];
     $postagemController = new PostagemController();
     $curtidasController = new CurtidaController();
+    $comentariosController = new ComentarioController();
 
     if ($_POST['acao'] && $_POST['acao'] == 'curtir') {
         $curtidasController->inserir($id_postagem, $_SESSION['id_usuario']);
     } elseif($_POST['acao'] && $_POST['acao'] == 'descurtir') {
         $curtidasController->remover($id_postagem, $_SESSION['id_usuario']);
+    }
+
+    if ($_POST['novo-comentario']) {
+        $cometario = $_POST;
+        $cometario['id_usuario'] = $_SESSION['id_usuario'];
+        $cometario['data_hora'] = date('Y-m-d H:i:s');
+        $comentariosController->inserir($cometario);
     }
 
     $postagem = $postagemController->consultar($id_postagem);
@@ -73,21 +81,20 @@ if ($_POST) {
                     <span class="text-gray-600"><?=$total_curtidas?> curtidas</span>
                 </div>
             </div>
-
-            <!-- Coluna Direita: Comentários -->
             <div class="w-1/3 pl-8">
-                <!-- Caixa de Texto para Novos Comentários -->
                 <div class="mb-6">
-                    <label for="new-comment" class="block text-gray-700 mb-2">Novo Comentário:</label>
-                    <textarea id="new-comment" rows="3" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Comentar</button>
+                    <label for="novo-comentario" class="block text-gray-700 mb-2">Novo Comentário:</label>
+                    <form method="post">
+                        <input type="hidden" name="id_postagem" value="<?=$postagem['id']?>">
+                        <textarea id="novo-comentario" name="novo-comentario" rows="3" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Comentar</button>
+                    </form>
                 </div>
                 <!-- Comentário -->
                 <div class="bg-gray-100 rounded-lg p-4 mb-4">
                     <h3 class="font-semibold">Nome do Comentador</h3>
                     <p class="text-gray-700 mt-2">Este é um exemplo de texto do comentário. Pode ser uma resposta, uma observação ou qualquer outro conteúdo textual.</p>
                 </div>
-                <!-- Adicione mais blocos de comentários aqui -->
             </div>
         </div>
     </div>

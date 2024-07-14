@@ -6,7 +6,7 @@ autenticar();
 function uploadArquivo(array $arquivoUpload, string $fotoAntiga)
 {
     if ($arquivoUpload['foto-perfil']['size'] > 0) {
-        $pastaUpload = "/uploads/".date('YmdHms')."-perfil-";
+        $pastaUpload = "/uploads/".date('YmdHis')."-perfil-";
         $nomeArquivo = $arquivoUpload['foto-perfil']['name'];
         $arquivo = $pastaUpload . $nomeArquivo;
         $tmp = $arquivoUpload['foto-perfil']['tmp_name'];
