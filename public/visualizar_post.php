@@ -3,6 +3,8 @@ require_once dirname(__DIR__) . "/config/session.php";
 require_once dirname(__DIR__) . "/autoload.php";
 autenticar();
 
+header("Cache-Control: no-cache, must-revalidate"); 
+
 if ($_POST) {
     $id_postagem = $_POST['id_postagem'];
     $postagemController = new PostagemController();
@@ -22,8 +24,12 @@ if ($_POST) {
         $comentariosController->inserir($cometario);
     }
 
-    $postagem = $postagemController->consultar($id_postagem);
+    if ($_POST['id_comentario']) {
+        $comentariosController->deletar($_POST['id_comentario']);
+    }
 
+    $postagem = $postagemController->consultar($id_postagem);
+    $comentarios = $comentariosController->consulta($id_postagem);
     $total_curtidas = $curtidasController->totalCurtidas($id_postagem);
 
     $ja_curtiu = $curtidasController->consultar($id_postagem, $_SESSION['id_usuario']);
@@ -86,15 +92,23 @@ if ($_POST) {
                     <label for="novo-comentario" class="block text-gray-700 mb-2">Novo Comentário:</label>
                     <form method="post">
                         <input type="hidden" name="id_postagem" value="<?=$postagem['id']?>">
-                        <textarea id="novo-comentario" name="novo-comentario" rows="3" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
+                        <textarea id="novo-comentario" name="novo-comentario" rows="2" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
                         <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Comentar</button>
                     </form>
                 </div>
-                <!-- Comentário -->
-                <div class="bg-gray-100 rounded-lg p-4 mb-4">
-                    <h3 class="font-semibold">Nome do Comentador</h3>
-                    <p class="text-gray-700 mt-2">Este é um exemplo de texto do comentário. Pode ser uma resposta, uma observação ou qualquer outro conteúdo textual.</p>
-                </div>
+                <?php foreach ($comentarios as $chave => $cometario) : ?>
+                    <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                        <h3 class="font-semibold"><?=$comentarios[$chave]['nome']?></h3>
+                        <p class="text-gray-700 mt-2"><?=$comentarios[$chave]['comentario']?></p>
+                        <?php if ($comentarios[$chave]['id_usuario'] == $_SESSION['id_usuario']) : ?>
+                            <form method="post">
+                                <input type="hidden" name="id_postagem" value="<?=$postagem['id']?>">
+                                <input type="hidden" name="id_comentario" value="<?=$comentarios[$chave]['id']?>">
+                                <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Excluir</button>
+                            </form>
+                        <?php endif ?>
+                    </div>
+                <?php endforeach ?>
             </div>
         </div>
     </div>

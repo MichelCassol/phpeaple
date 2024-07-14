@@ -21,4 +21,16 @@ class ComentarioController
         $this->comentario->setData_hora($comentario['data_hora']);
         $this->comentario->inserir();
     }
+
+    public function consulta(int $id_postagem) : array
+    {
+        $this->comentario->setId_postagem($id_postagem);
+        return $this->comentario->consultaPost();
+    }
+
+    public function deletar(int $id_comentario) : void
+    {
+        $this->comentario->setId($id_comentario);
+        $this->comentario->deletar();
+    }
 }

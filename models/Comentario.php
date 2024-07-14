@@ -95,8 +95,8 @@ class Comentario
 	public function consultaPost() : array
 	{
 		try {
-			$stmt = $this->db->prepare("SELECT * FROM comentarios WHERE id = :id");
-			$stmt->bindValue(':id', $this->id);
+			$stmt = $this->db->prepare("SELECT u.id AS id_usuario, u.nome, c.* FROM comentarios AS c INNER JOIN usuario AS u on (c.id_usuario = u.id) WHERE id_postagem = :id_postagem ORDER BY c.id DESC");
+			$stmt->bindValue(':id_postagem', $this->id_postagem);
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		} catch (PDOException $th) {
