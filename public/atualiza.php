@@ -71,9 +71,9 @@ if ($_POST) {
             </div>
         </div>
     </nav>
-    <form method="post" action="/public/atualiza.php" enctype="multipart/form-data" id="registration-form" class=" mt-20 xl:w-1/3 lg:w-3/5">
+    <form method="post" action="/public/atualiza.php" enctype="multipart/form-data" id="registration-form" class="flex justify-center mt-20 w-[90%]">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl flex">
-            <div class="w-3/4 pr-8">
+            <div class="w-[70%] pr-8">
                 <h2 class="text-2xl font-bold mb-6 text-center">Atualizar perfil</h2>
                 <div class="mb-4">
                     <label for="nome" class="block text-gray-700">Nome:</label>
@@ -114,7 +114,7 @@ if ($_POST) {
                     <h2 class='text-2md font-bold mt-6 text-center'>As senhas não conferem!</h2>
                 <?php endif ?>
             </div>
-            <div class="w-1/4 flex row items-center justify-center">
+            <div class="w-[30%] flex row items-center justify-center">
                 <div class="gap-4 flex flex-col justify-center items-center ">
                     <h2 class="flex text-gray-700 font-bold">Foto de Perfil</h2>
                     <input type="hidden" name="foto-antiga" value="<?=$dados_usuario['foto_arquivo']?>">
