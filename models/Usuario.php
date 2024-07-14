@@ -204,7 +204,19 @@ class Usuario
     public function consultar()
     {
         try {
-            $stmt = $this->db->prepare("SELECT id, nome, nascimento, descricao, foto_arquivo, email FROM usuario WHERE id = :id");
+            $stmt = $this->db->prepare("SELECT id, nome, nascimento, descricao, foto_arquivo, email, total_visitas FROM usuario WHERE id = :id");
+            $stmt->bindValue(':id', $this->id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+        }
+    }
+
+    public function contaVisita()
+    {
+        try {
+            $stmt = $this->db->prepare("UPDATE usuario SET total_visitas = total_visitas + 1 WHERE id = :id");
             $stmt->bindValue(':id', $this->id);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);

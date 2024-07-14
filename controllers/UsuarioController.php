@@ -81,8 +81,15 @@ class UsuarioController
         if (isset($array_usuario['nova-senha']) && $array_usuario['nova-senha'] !== "") {
             $this->usuario->setSenha(password_hash($array_usuario['nova-senha'], PASSWORD_BCRYPT));
         }
+        
         if($this->usuario->atualizar()){
             return $this->usuario->consultar();
         }
+    }
+
+    public function contaVisita(int $id_usuario) : void
+    {
+        $this->usuario->setId($id_usuario);
+        $this->usuario->contaVisita();
     }
 }

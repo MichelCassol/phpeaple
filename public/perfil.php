@@ -9,8 +9,13 @@ $seguidorController = new SeguidorController();
 
 $is_seguidor = false;
 
+if ($_POST['conta-visita'] && $seguidorController->isSeguidor($_SESSION['id_usuario'], $_POST['id_usuario_postagem'])) {
+    $controllerUsuario->contaVisita($_POST['id_usuario_postagem']);
+    unset($_POST['conta-visita']);
+    $is_seguidor = true;
+}
+
 if ($_POST['id_usuario_postagem']) {
-    $is_seguidor = $seguidorController->isSeguidor($_SESSION['id_usuario'], $_POST['id_usuario_postagem']);
     $dados_usuario =  $controllerUsuario->consultar($_POST['id_usuario_postagem']);
     $dados_usuario['total_seguidores'] = $seguidorController->totalSeguidores($_POST['id_usuario_postagem']);
     $postagens = $postagemController->postsUsuario($_POST['id_usuario_postagem']);
@@ -64,6 +69,7 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
                     <p class="text-gray-700 mb-2">Data de Nascimento: <?=$nascimento->format('d/m/Y')?></p>
                     <p class="text-gray-700 mb-4 text-center"><?=$dados_usuario['descricao']?></p>
                     <p class="text-gray-700 mb-4 text-center">Total de seguidos: <?=$dados_usuario['total_seguidores']?></p>
+                    <p class="text-gray-700 mb-4 text-center">Total de visitas do perfil: <?=$dados_usuario['total_visitas']?></p>
                     <?php if (($_POST['id_usuario_postagem'] && $_POST['id_usuario_postagem'] != $_SESSION['id_usuario']) || ($_POST['id_usuario_seguir'] && $_POST['id_usuario_seguir'] != $_SESSION['id_usuario'])) : ?>
                         <?php if ($is_seguidor) : ?>
                             <form action="/public/perfil.php" method="post">
@@ -92,7 +98,10 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
                             <img src="..<?=$postagem['imagem_arquivo']?>" alt="Imagem da Postagem" class="w-full rounded-lg mb-4">
                         <?php endif ?>
                         <div class="flex items-center justify-between">
-                            <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Curtir</button>
+                            <form action="/public/visualizar_post.php" method="post">
+                                <input type="hidden" name="id_postagem" value="<?=$postagem['id']?>">
+                                <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Ver post</button>
+                            </form>
                             <span class="text-gray-600">0 curtidas</span>
                         </div>
                     </div>

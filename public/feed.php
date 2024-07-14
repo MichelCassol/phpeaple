@@ -50,6 +50,7 @@ foreach ($total_posts as $key => $post) {
                 <div class="p-6 grid gap-4 grid-cols-1">
                     <form action="/public/perfil.php" method="post">
                         <input type="hidden" name="id_usuario_postagem" value="<?=$post['id_usuario']?>">
+                        <input type="hidden" name="conta-visita" value="<?=$post['id_usuario']?>">
                         <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none"><?=$post['nome']?></button>
                     </form>
                     <p class="text-gray-700"><?=$post['texto']?></p>

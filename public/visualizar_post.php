@@ -46,7 +46,6 @@ if ($_POST) {
     </nav>
     <div class="container mt-16 mx-auto p-8" style="max-width: 70%;">
         <div class="bg-white rounded-lg shadow-lg p-8 flex">
-            <!-- Coluna Esquerda: Postagem -->
             <div class="w-2/3 grid grid-col-1 pr-8">
                 <div class="mb-4">
                     <h2 class="text-xl font-bold"><?=$postagem['nome_usuario']?></h2>
