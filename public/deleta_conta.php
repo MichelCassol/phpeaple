@@ -1,5 +1,5 @@
 <?php 
-require_once dirname(__DIR__) . "/config/session.php";
+require_once "config/session.php";
 require_once dirname(__DIR__) . "/autoload.php";
 autenticar();
 
@@ -13,4 +13,4 @@ foreach ($arquivos as $arquivo) {
 
 $controllerUsuario->deletar($_SESSION['id_usuario']);
 
-require_once dirname(__DIR__) . "/config/logout.php";
+require_once "/config/logout.php";

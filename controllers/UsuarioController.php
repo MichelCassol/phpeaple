@@ -28,7 +28,7 @@ class UsuarioController
     {
         $this->usuario->setId($usuario);
         if($this->usuario->deletar()){
-            header('Location: ../config/logout.php');
+            header('Location: ../public/config/logout.php');
         } else {
             return false;
         }

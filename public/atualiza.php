@@ -1,5 +1,5 @@
 <?php 
-require_once dirname(__DIR__) . "/config/session.php";
+require_once "config/session.php";
 require_once dirname(__DIR__) . "/autoload.php";
 autenticar();
 
@@ -67,7 +67,7 @@ if ($_POST) {
                 <h2 class="text-white text-2xl"><span class="font-bold italic text-4xl">PHP</span>eople</h2>
             </div>
             <div class="flex flex-row justify-end items-center">
-                <button class="bg-red-500 text-white px-2 py-1 w-16 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4" onclick="window.location.href='../config/logout.php'">Sair</button>
+                <button class="bg-red-500 text-white px-2 py-1 w-16 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mr-4" onclick="window.location.href='/public/config/logout.php'">Sair</button>
             </div>
         </div>
     </nav>
