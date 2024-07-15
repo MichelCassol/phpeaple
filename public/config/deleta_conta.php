@@ -1,6 +1,6 @@
 <?php 
-require_once "config/session.php";
-require_once dirname(__DIR__) . "/autoload.php";
+require_once "session.php";
+require_once dirname(__DIR__, 2) . "/autoload.php";
 autenticar();
 
 $controllerUsuario = new UsuarioController();
@@ -8,9 +8,9 @@ $controllerUsuario = new UsuarioController();
 $arquivos = $controllerUsuario->arquivosUsuario($_SESSION['id_usuario']);
 
 foreach ($arquivos as $arquivo) {
-    unlink('..'.$arquivo['arquivo']);
+    unlink(dirname(__DIR__, 2).$arquivo['arquivo']);
 }
 
 $controllerUsuario->deletar($_SESSION['id_usuario']);
 
-require_once "/config/logout.php";
+require_once "logout.php";
