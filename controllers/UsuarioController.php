@@ -69,6 +69,17 @@ class UsuarioController
         return $this->usuario->consultar();
     }
 
+    function consultaPorEmail($email) : bool
+    {
+        $this->usuario->setEmail(trim($email));
+        $resultado = $this->usuario->consultaPorEmail();
+        if ($resultado['id']) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function atualizaCadastro($array_usuario)
     {
         $this->usuario->setId($array_usuario['id']);

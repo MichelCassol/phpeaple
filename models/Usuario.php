@@ -213,6 +213,18 @@ class Usuario
         }
     }
 
+    public function consultaPorEmail()
+    {
+        try {
+            $stmt = $this->db->prepare("SELECT id FROM usuario WHERE email = :email");
+            $stmt->bindValue(':email', $this->email);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $th) {
+            echo "Erro: ".$th;
+        }
+    }
+
     public function contaVisita()
     {
         try {

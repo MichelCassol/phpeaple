@@ -37,11 +37,13 @@ if ($_POST) {
         if ($login) {
             $dados_usuario['foto-perfil'] = uploadArquivo($_FILES, $dados_usuario['foto-antiga']);
             $_SESSION['foto-perfil'] = $dados_usuario['foto-perfil'];
+            $_SESSION['usuario'] = $dados_usuario['nome'];
             $dados_usuario = $controllerUsuario->atualizaCadastro($dados_usuario);
         }
     } elseif(!$senha && !$novaSenha && !$novaSenhaRep) {
         $dados_usuario['foto-perfil'] = uploadArquivo($_FILES, $dados_usuario['foto-antiga']);
         $_SESSION['foto-perfil'] = $dados_usuario['foto-perfil'];
+        $_SESSION['usuario'] = $dados_usuario['nome'];
         $dados_usuario = $controllerUsuario->atualizaCadastro($dados_usuario);
     } else {
         $senhaInvalida = false;

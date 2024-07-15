@@ -6,6 +6,7 @@ autenticar();
 $controllerUsuario = new UsuarioController();
 $postagemController = new PostagemController();
 $seguidorController = new SeguidorController();
+$curtidasController = new CurtidaController();
 
 $is_seguidor = false;
 
@@ -13,6 +14,9 @@ if ($_POST['conta-visita'] && $seguidorController->isSeguidor($_SESSION['id_usua
     $controllerUsuario->contaVisita($_POST['id_usuario_postagem']);
     unset($_POST['conta-visita']);
     $is_seguidor = true;
+} elseif ($_POST['conta-visita'] && $_POST['id_usuario_postagem'] != $_SESSION['id_usuario']){
+    $controllerUsuario->contaVisita($_POST['id_usuario_postagem']);
+    unset($_POST['conta-visita']);
 }
 
 if ($_POST['id_usuario_postagem']) {
@@ -36,6 +40,19 @@ if ($_POST['id_usuario_postagem']) {
     $dados_usuario = $controllerUsuario->consultar($_SESSION['id_usuario']);
     $dados_usuario['total_seguidores'] = $seguidorController->totalSeguidores($_SESSION['id_usuario']);
     $postagens = $postagemController->postsUsuario($_SESSION['id_usuario']);
+}
+
+$curtidas_post = $curtidasController->curtidasPorPost();
+
+foreach ($postagens as $key => $post) {
+    foreach ($curtidas_post as $chave => $curtida) {
+        if ($postagens[$key]['id'] == $curtidas_post[$chave]['id_postagem']) {
+            $postagens[$key]['total-curtidas'] = $curtidas_post[$chave]['total'];
+            break;
+        } else {
+            $postagens[$key]['total-curtidas'] = 0;
+        }
+    }
 }
 
 $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
@@ -102,7 +119,7 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
                                 <input type="hidden" name="id_postagem" value="<?=$postagem['id']?>">
                                 <button class="flex items-center text-blue-500 hover:text-blue-600 focus:outline-none">Ver post</button>
                             </form>
-                            <span class="text-gray-600">0 curtidas</span>
+                            <span class="text-gray-600"><?=$postagem['total-curtidas']?> curtidas</span>
                         </div>
                     </div>
                 <?php endforeach ?>

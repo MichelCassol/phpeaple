@@ -18,7 +18,11 @@ if ($_POST) {
         $dados_usuario['foto-perfil'] = "";
     }
 
-    $controllerUsuario->cadastroUsuario($dados_usuario);
+    $cadastrado = $controllerUsuario->consultaPorEmail($dados_usuario['email']);
+
+    if (!$cadastrado) {
+        $controllerUsuario->cadastroUsuario($dados_usuario);
+    }
 }
 ?>
 
@@ -54,10 +58,15 @@ if ($_POST) {
                     <label for="descricao" class="block text-gray-700">Sobre você:</label>
                     <textarea id="descricao" rows="3" name="descricao" placeholder="Fale um pouco sobre você em no máximo 100 caracteres" maxlength="100" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="mb-4 flex items-center justify-between">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Cadastrar</button>
                     <button type="button" onclick="window.location.href='/'" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Cancelar</button>
                 </div>
+                <?php if ($cadastrado) : ?>
+                    <div class="flex itens-center justify-center w-full">
+                        <h2 class="text-2md font-bold text-center">E-mail já cadastrado!</h2>
+                    </div>
+                <?php endif ?>
             </div>
             <div class="w-1/4 flex row items-center justify-center">
                 <div class="gap-4 flex flex-col justify-center items-center ">
