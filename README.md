@@ -2,7 +2,7 @@ PHPeople
 ===
 <h1 align="center">
     <img src="https://img.shields.io/gitlab/last-commit/MichelCassol/projeto-devevolutionphp-2024" alt="last-commit">&nbsp;&nbsp;&nbsp;
-    <img src="https://img.shields.io/github/repo-size/MichelCassol/projeto-devevolutionphp-2024" alt="repo-size">&nbsp;&nbsp;&nbsp;
+    <img src="https://img.shields.io/gitlab/repo-size/MichelCassol/projeto-devevolutionphp-2024" alt="repo-size">&nbsp;&nbsp;&nbsp;
 </h1>
 
 O PHPeople é projeto de rede social, desenvolvido em PHP ao fim do curso DevEvolution da [IXC Soft](https://www.ixcsoft.com.br) com a finalidade avaliar e aplicar os conhecimento adquiridos durante o curso.
