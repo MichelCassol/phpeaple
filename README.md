@@ -20,7 +20,7 @@ Para iniciar clone o projeto para a máquina utilizando Git ou realize o downloa
 git clone https://gitlab.com/MichelCassol/projeto-devevolutionphp-2024.git
 ~~~
 
-Para executar o projeto será necessário ter instalado em sua máquina o PHP, o SQLite3 e o plugin do SQLite para a versão do PHP instalada. Recomendo a versão 7.4 ou mais recente para garantir a compatibilidade com o sistema. 
+Para executar o projeto será necessário ter instalado em sua máquina o PHP, o SQLite3 e o plugin do SQLite para a versão do PHP instalada. Recomendo a versão 7.4 do PHP ou mais recente para garantir a compatibilidade com o sistema. 
 
 Com todas as dependências instaladas e finalizado o clone do repositório, utilizando o terminal do seu sistema navegue até a pasta raiz do projeto e inicie o servidor web integrado do PHP:
 
