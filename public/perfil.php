@@ -10,20 +10,20 @@ $curtidasController = new CurtidaController();
 
 $is_seguidor = false;
 
-if ($_POST['conta-visita'] && $seguidorController->isSeguidor($_SESSION['id_usuario'], $_POST['id_usuario_postagem'])) {
+if (isset($_POST['conta-visita']) && $seguidorController->isSeguidor($_SESSION['id_usuario'], $_POST['id_usuario_postagem'])) {
     $controllerUsuario->contaVisita($_POST['id_usuario_postagem']);
     unset($_POST['conta-visita']);
     $is_seguidor = true;
-} elseif ($_POST['conta-visita'] && $_POST['id_usuario_postagem'] != $_SESSION['id_usuario']){
+} elseif (isset($_POST['conta-visita']) && $_POST['id_usuario_postagem'] != $_SESSION['id_usuario']){
     $controllerUsuario->contaVisita($_POST['id_usuario_postagem']);
     unset($_POST['conta-visita']);
 }
 
-if ($_POST['id_usuario_postagem']) {
+if (isset($_POST['id_usuario_postagem'])) {
     $dados_usuario =  $controllerUsuario->consultar($_POST['id_usuario_postagem']);
     $dados_usuario['total_seguidores'] = $seguidorController->totalSeguidores($_POST['id_usuario_postagem']);
     $postagens = $postagemController->postsUsuario($_POST['id_usuario_postagem']);
-} elseif ($_POST['id_usuario_seguir']) {
+} elseif (isset($_POST['id_usuario_seguir'])) {
     if ($_POST['acao'] == "seguir") {
         $seguidorController->seguir($_SESSION['id_usuario'],$_POST['id_usuario_seguir']);
         $dados_usuario =  $controllerUsuario->consultar($_POST['id_usuario_seguir']);
@@ -87,16 +87,16 @@ $nascimento = DateTime::createFromFormat('Y-m-d', $dados_usuario['nascimento']);
                     <p class="text-gray-700 mb-4 text-center"><?=$dados_usuario['descricao']?></p>
                     <p class="text-gray-700 mb-4 text-center">Total de seguidos: <?=$dados_usuario['total_seguidores']?></p>
                     <p class="text-gray-700 mb-4 text-center">Total de visitas do perfil: <?=$dados_usuario['total_visitas']?></p>
-                    <?php if (($_POST['id_usuario_postagem'] && $_POST['id_usuario_postagem'] != $_SESSION['id_usuario']) || ($_POST['id_usuario_seguir'] && $_POST['id_usuario_seguir'] != $_SESSION['id_usuario'])) : ?>
+                    <?php if ((isset($_POST['id_usuario_postagem']) && $_POST['id_usuario_postagem'] != $_SESSION['id_usuario']) || (isset($_POST['id_usuario_seguir']) && $_POST['id_usuario_seguir'] != $_SESSION['id_usuario'])) : ?>
                         <?php if ($is_seguidor) : ?>
                             <form action="/public/perfil.php" method="post">
-                                <input type="hidden" name="id_usuario_seguir" value="<?=$_POST['id_usuario_postagem'] ? $_POST['id_usuario_postagem'] : $_POST['id_usuario_seguir']?>">
+                                <input type="hidden" name="id_usuario_seguir" value="<?=isset($_POST['id_usuario_postagem']) ? $_POST['id_usuario_postagem'] : $_POST['id_usuario_seguir']?>">
                                 <input type="hidden" name="acao" value="deixar_seguir">
                                 <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mb-4">Seguindo</button>
                             </form>
                         <?php else : ?>
                             <form action="/public/perfil.php" method="post">
-                                <input type="hidden" name="id_usuario_seguir" value="<?=$_POST['id_usuario_postagem'] ? $_POST['id_usuario_postagem'] : $_POST['id_usuario_seguir']?>">
+                                <input type="hidden" name="id_usuario_seguir" value="<?=isset($_POST['id_usuario_postagem']) ? $_POST['id_usuario_postagem'] : $_POST['id_usuario_seguir']?>">
                                 <input type="hidden" name="acao" value="seguir">
                                 <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mb-4">Seguir</button>
                             </form>

@@ -13,18 +13,18 @@ if ($_POST) {
 
     if ($_POST['acao'] && $_POST['acao'] == 'curtir') {
         $curtidasController->inserir($id_postagem, $_SESSION['id_usuario']);
-    } elseif($_POST['acao'] && $_POST['acao'] == 'descurtir') {
+    } elseif(isset($_POST['acao']) && $_POST['acao'] == 'descurtir') {
         $curtidasController->remover($id_postagem, $_SESSION['id_usuario']);
     }
 
-    if ($_POST['novo-comentario']) {
+    if (isset($_POST['novo-comentario'])) {
         $cometario = $_POST;
         $cometario['id_usuario'] = $_SESSION['id_usuario'];
         $cometario['data_hora'] = date('Y-m-d H:i:s');
         $comentariosController->inserir($cometario);
     }
 
-    if ($_POST['id_comentario']) {
+    if (isset($_POST['id_comentario'])) {
         $comentariosController->deletar($_POST['id_comentario']);
     }
 

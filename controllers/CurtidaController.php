@@ -31,7 +31,7 @@ class CurtidaController
         $this->curtida->setId_postagem($id_post);
         $this->curtida->setId_usuario($id_usuario);
         $resultado = $this->curtida->consultar();
-        if ($resultado['id'] > 0) {
+        if (isset($resultado['id']) && $resultado['id'] > 0) {
             return true;
         } else {
             return false;

@@ -77,7 +77,7 @@ class Seguidor
             $stmt->bindValue(':seguidor', $this->id_seguidor);
             $stmt->execute();
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($resultado['id'] > 0) {
+            if (isset($resultado['id']) && $resultado['id'] > 0) {
                 return true;
             } else {
                 return false;
